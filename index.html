@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhaajir Scrub – Clean Your Digital Trail</title>
+<!-- Favicon -->
+<link rel="icon" type="image/webp" href="https://i.postimg.cc/JztFxsRH/hajir-logo-putih.webp">
 
 <!-- CDN Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/ExifReader.min.js"></script>
@@ -16,9 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  /* ============================================================
-     CSS VARIABLES – Muhaajir Brand Palette
-  ============================================================ */
+  /* ============== CSS VARIABLES =============== */
   :root {
     --navy:       #020617;
     --navy-mid:   #0f172a;
@@ -38,9 +38,7 @@
     --radius-sm:  8px;
   }
 
-  /* ============================================================
-     RESET & BASE
-  ============================================================ */
+  /* ============== RESET & BASE =============== */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
@@ -80,9 +78,7 @@
     z-index: 0;
   }
 
-  /* ============================================================
-     LAYOUT WRAPPER
-  ============================================================ */
+  /* ============== LAYOUT WRAPPER =============== */
   .wrapper {
     position: relative;
     z-index: 1;
@@ -91,9 +87,7 @@
     padding: 0 20px 80px;
   }
 
-  /* ============================================================
-     HEADER
-  ============================================================ */
+  /* ============== HEADER =============== */
   header {
     display: flex;
     align-items: center;
@@ -150,9 +144,7 @@
     margin-top: 4px;
   }
 
-  /* ============================================================
-     DROP ZONE
-  ============================================================ */
+  /* ============== DROP ZONE =============== */
   .drop-zone {
     border: 2px dashed rgba(148,163,184,0.35);
     border-radius: var(--radius);
@@ -245,9 +237,7 @@
 
   #fileInput { display: none; }
 
-  /* ============================================================
-     EDUCATION BOX
-  ============================================================ */
+  /* ============== EDUCATION BOX =============== */
   .edu-box {
     margin-top: 20px;
     background: rgba(239,68,68,0.06);
@@ -269,9 +259,7 @@
 
   .edu-text strong { color: var(--red); }
 
-  /* ============================================================
-     GLOBAL ACTIONS BAR
-  ============================================================ */
+  /* ============== GLOBAL ACTIONS BAR =============== */
   .action-bar {
     display: none;
     align-items: center;
@@ -350,19 +338,16 @@
   }
   
   .footer-logo {
-  width: 60px;          /* Atur lebar logo sesuai selera */
-  height: auto;         /* Biar tingginya menyesuaikan otomatis (nggak penyet) */
-  margin-bottom: 10px;  /* Jarak bawah logo ke tulisan Muhaajir Scrub */
-  display: block;       /* Biar gampang diatur posisinya */
-  margin-left: auto;    /* Center horizontal */
-  margin-right: auto;   /* Center horizontal */
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2)); /* Efek glow tipis */
-}
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+  }
 
-
-  /* ============================================================
-     FILE CARDS GRID
-  ============================================================ */
+  /* ============== FILE CARDS GRID =============== */
   #filesGrid {
     display: grid;
     gap: 20px;
@@ -387,7 +372,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Card top row */
   .card-header {
     display: flex;
     align-items: center;
@@ -467,7 +451,6 @@
     border: 1px solid rgba(148,163,184,0.2);
   }
 
-  /* Privacy report */
   .privacy-report {
     padding: 16px 18px;
     border-bottom: 1px solid rgba(148,163,184,0.08);
@@ -518,7 +501,6 @@
 
   .report-item-value { color: var(--text-soft); word-break: break-word; }
 
-  /* Progress bar */
   .progress-wrap {
     padding: 12px 18px;
     border-bottom: 1px solid rgba(148,163,184,0.08);
@@ -549,7 +531,6 @@
     box-shadow: 0 0 8px rgba(59,130,246,0.4);
   }
 
-  /* Card footer */
   .card-footer {
     display: flex;
     align-items: center;
@@ -558,7 +539,6 @@
     flex-wrap: wrap;
   }
 
-  /* Before/after thumbnails */
   .thumb-pair {
     display: flex;
     gap: 14px;
@@ -595,9 +575,7 @@
     padding-top: 24px;
   }
 
-  /* ============================================================
-     SPINNER
-  ============================================================ */
+  /* ============== SPINNER =============== */
   .spinner {
     width: 16px;
     height: 16px;
@@ -610,9 +588,7 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ============================================================
-     TOAST NOTIFICATIONS
-  ============================================================ */
+  /* ============== TOAST NOTIFICATIONS =============== */
   #toastContainer {
     position: fixed;
     bottom: 24px;
@@ -648,9 +624,7 @@
     to   { opacity: 1; transform: translateX(0); }
   }
 
-  /* ============================================================
-     FOOTER
-  ============================================================ */
+  /* ============== FOOTER =============== */
   footer {
     text-align: center;
     padding: 28px 0 0;
@@ -664,9 +638,7 @@
   footer a { color: var(--blue); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
-  /* ============================================================
-     RESPONSIVE
-  ============================================================ */
+  /* ============== RESPONSIVE =============== */
   @media (max-width: 600px) {
     header { flex-direction: column; align-items: flex-start; gap: 12px; }
     .drop-zone { padding: 40px 20px; }
@@ -674,9 +646,7 @@
     .btn { justify-content: center; }
   }
 
-  /* ============================================================
-     SECTION DIVIDER
-  ============================================================ */
+  /* ============== SECTION DIVIDER =============== */
   .section-label {
     font-size: 11px;
     font-weight: 600;
@@ -697,9 +667,7 @@
     background: rgba(148,163,184,0.12);
   }
 
-  /* ============================================================
-     EMPTY STATE (after clear)
-  ============================================================ */
+  /* ============== EMPTY STATE =============== */
   .empty-hint {
     text-align: center;
     color: var(--slate-dim);
@@ -711,23 +679,21 @@
 </head>
 <body>
 
-<!-- ===================== HEADER ===================== -->
 <div class="wrapper">
   <header>
     <img
-      src="https://i.postimg.cc/Kvg50f5n/IMG-20250812-164118-putih.png"
+      src="https://i.postimg.cc/JztFxsRH/hajir-logo-putih.webp"
       alt="Muhaajir Scrub Logo"
       class="header-logo"
       onerror="this.style.display='none'"
     >
     <div class="header-text">
       <div class="header-title">Muhaajir <span>Scrub</span></div>
-      <div class="header-tagline">Bersihkan jejak digitalmu – 100% lokal di browser, tidak ada server.</div>
+      <div class="header-tagline">Clean your digital trail – 100% local in browser, no server.</div>
     </div>
-    <div class="header-badge">🔒 100% Lokal</div>
+    <div class="header-badge">🔒 100% Local</div>
   </header>
 
-  <!-- ===================== DROP ZONE ===================== -->
   <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
     <div class="drop-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -736,10 +702,10 @@
         <line x1="12" y1="3" x2="12" y2="15"/>
       </svg>
     </div>
-    <div class="drop-title">Drag & drop file ke sini</div>
+    <div class="drop-title">Drag & drop files here</div>
     <div class="drop-subtitle">
-      atau klik untuk pilih file dari perangkat<br>
-      <span style="font-size:12px; color:var(--slate-dim);">Maks. 8 file, 50 MB per file</span>
+      or click to select files from your device<br>
+      <span style="font-size:12px; color:var(--slate-dim);">Max 8 files, 50 MB per file</span>
     </div>
     <div class="drop-formats">
       <span class="format-tag active">JPG / JPEG</span>
@@ -749,15 +715,13 @@
     <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf">
   </div>
 
-  <!-- Education box -->
   <div class="edu-box">
     <span class="edu-icon">⚠️</span>
     <div class="edu-text">
-      <strong>Mengapa ini penting?</strong> Metadata tersembunyi di foto & dokumen bisa mengungkap <strong>lokasi GPS rumahmu</strong>, tipe HP, waktu presisi pengambilan, bahkan nama aslimu. Sangat berbahaya jika file dibagikan ke publik.
+      <strong>Why is this important?</strong> Hidden metadata in photos & documents can reveal <strong>your home GPS location</strong>, phone model, precise timestamp, even your real name. Very dangerous if files are shared publicly.
     </div>
   </div>
 
-  <!-- ===================== ACTION BAR ===================== -->
   <div class="action-bar" id="actionBar">
     <div style="display:flex;gap:10px;flex-wrap:wrap;flex:1">
       <button class="btn btn-primary" id="scrubAllBtn" onclick="scrubAll()">
@@ -775,62 +739,48 @@
     </button>
   </div>
 
-  <!-- ===================== FILES GRID ===================== -->
   <div id="filesSection" style="display:none">
-    <div class="section-label" style="margin-top:32px">
-      Privacy Report
-    </div>
+    <div class="section-label" style="margin-top:32px">Privacy Report</div>
   </div>
   <div id="filesGrid"></div>
 
-</div><!-- /wrapper -->
+</div>
 
-<!-- ===================== FOOTER ===================== -->
 <footer class="footer">
-  <img src="https://i.postimg.cc/Kvg50f5n/IMG-20250812-164118-putih.png" alt="Logo Muhaajir" class="footer-logo" loading="lazy" decoding="async">
+  <img src="https://i.postimg.cc/JztFxsRH/hajir-logo-putih.webp" alt="Muhaajir Logo" class="footer-logo" loading="lazy" decoding="async">
   <div class="footer-name">Muhaajir Scrub</div>
   <div class="footer-tagline">Clean your files, protect your privacy.</div>
 
   <div class="privacy-note" style="margin: 15px 0; font-size: 0.9rem; color: #ccc; max-width: 600px; margin-left: auto; margin-right: auto;">
-    <i class="fas fa-microchip"></i> Muhaajir Scrub · Semua proses terjadi di browsermu, tidak ada data yang dikirim ke server.
+    <i class="fas fa-microchip"></i> Muhaajir Scrub · All processing happens in your browser, no data sent to any server.
     <div style="margin-top: 4px; font-size: 0.8rem; opacity: 0.8;">Built with privacy-first principles</div>
   </div>
 
-  <div class="ft-div"></div>
   <div class="ft-lnks">
-    <a href="https://hajirmuhaajir.github.io/footer-essentials" target="_blank" rel="noopener noreferrer">Kebijakan Privasi</a>
-    <a href="https://hajirmuhaajir.github.io/footer-essentials" target="_blank" rel="noopener noreferrer">Syarat & Ketentuan</a>
-
+    <a href="https://hajirmuhaajir.github.io/footer-essentials" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+    <a href="https://hajirmuhaajir.github.io/footer-essentials" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+  </div>
   <div class="social-links">
     <a href="https://www.youtube.com/@hajirstein" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
     <a href="https://www.tiktok.com/@muhaajir_muhaajir" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/muhaajirere" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
     <a href="https://github.com/hajirmuhaajir" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
   </div>
-
   <div class="footer-divider"></div>
   <div class="copyright">© 2026 Muhaajir. All rights reserved.</div>
 </footer>
 
-
-<!-- ===================== TOAST CONTAINER ===================== -->
 <div id="toastContainer"></div>
 
-<!-- ===================== MAIN JAVASCRIPT ===================== -->
 <script>
-/* ============================================================
-   STATE
-============================================================ */
-const files = [];        // Array of file state objects
-const cleanedBlobs = []; // Map: index → {blob, filename}
+/* ============== STATE =============== */
+const files = [];        
+const cleanedBlobs = []; 
 
-/* ============================================================
-   DRAG & DROP SETUP
-============================================================ */
+/* ============== DRAG & DROP SETUP =============== */
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 
-// Prevent default drag events on the whole page
 ['dragenter','dragover','dragleave','drop'].forEach(evt =>
   document.addEventListener(evt, e => e.preventDefault())
 );
@@ -848,26 +798,24 @@ dropZone.addEventListener('drop', e => {
 
 fileInput.addEventListener('change', () => handleFiles([...fileInput.files]));
 
-/* ============================================================
-   FILE INGESTION
-============================================================ */
+/* ============== FILE INGESTION =============== */
 function handleFiles(incoming) {
   const ALLOWED = ['image/jpeg', 'image/png', 'application/pdf'];
   const MAX_FILES = 8;
-  const MAX_SIZE  = 50 * 1024 * 1024; // 50 MB
+  const MAX_SIZE  = 50 * 1024 * 1024;
 
   if (files.length + incoming.length > MAX_FILES) {
-    toast(`Maks. ${MAX_FILES} file pada satu waktu.`, 'warn');
+    toast(`Max ${MAX_FILES} files at once.`, 'warn');
     incoming = incoming.slice(0, MAX_FILES - files.length);
   }
 
   incoming.forEach(file => {
     if (!ALLOWED.includes(file.type)) {
-      toast(`Format tidak didukung: ${file.name}`, 'error');
+      toast(`Unsupported format: ${file.name}`, 'error');
       return;
     }
     if (file.size > MAX_SIZE) {
-      toast(`File terlalu besar (>50 MB): ${file.name}`, 'warn');
+      toast(`File too large (>50 MB): ${file.name}`, 'warn');
       return;
     }
 
@@ -880,19 +828,16 @@ function handleFiles(incoming) {
   });
 
   updateUI();
-  fileInput.value = ''; // reset so same file can be re-added
+  fileInput.value = '';
 }
 
-/* ============================================================
-   METADATA ANALYSIS
-============================================================ */
+/* ============== METADATA ANALYSIS =============== */
 async function readAndAnalyze(idx) {
   const entry = files[idx];
   const { file } = entry;
-  const card = document.getElementById(`card-${idx}`);
 
-  setCardStatus(idx, 'processing', 'Membaca...');
-  showProgress(idx, true, 'Menganalisa metadata...', 20);
+  setCardStatus(idx, 'processing', 'Reading...');
+  showProgress(idx, true, 'Analyzing metadata...', 20);
 
   const buffer = await file.arrayBuffer();
 
@@ -907,146 +852,98 @@ async function readAndAnalyze(idx) {
     entry.metadata = [];
   }
 
-  showProgress(idx, true, 'Analisa selesai', 100);
+  showProgress(idx, true, 'Analysis complete', 100);
   setTimeout(() => showProgress(idx, false), 600);
 
   renderReport(idx);
 }
 
-/* -- Image (JPG/PNG) via ExifReader -- */
 async function analyzeImage(idx, buffer) {
   const entry = files[idx];
   const meta = [];
 
   try {
     const tags = ExifReader.load(buffer, { expanded: true });
-
-    // Helper to safely get tag value
     const get = (group, key) => {
       try { return tags[group]?.[key]?.description || tags[group]?.[key]?.value || null; }
       catch { return null; }
     };
 
-    // GPS
     if (tags.gps) {
       const lat = tags.gps.Latitude;
       const lon = tags.gps.Longitude;
       if (lat !== undefined && lon !== undefined) {
         let area = '';
-        // Heuristic: rough region detection
-        if (lat > -8 && lat < -5 && lon > 106 && lon < 107.5) area = ' (area Jakarta)';
-        else if (lat > -7.5 && lat < -6.8 && lon > 110 && lon < 111) area = ' (area Semarang)';
-        else if (lat > -8 && lat < -7 && lon > 112 && lon < 113) area = ' (area Surabaya)';
-
-        meta.push({
-          key: 'Lokasi GPS',
-          value: `${lat.toFixed(5)}, ${lon.toFixed(5)}${area}`,
-          sensitive: true,
-          icon: '📍'
-        });
+        if (lat > -8 && lat < -5 && lon > 106 && lon < 107.5) area = ' (Jakarta area)';
+        else if (lat > -7.5 && lat < -6.8 && lon > 110 && lon < 111) area = ' (Semarang area)';
+        else if (lat > -8 && lat < -7 && lon > 112 && lon < 113) area = ' (Surabaya area)';
+        meta.push({ key: 'GPS Location', value: `${lat.toFixed(5)}, ${lon.toFixed(5)}${area}`, sensitive: true, icon: '📍' });
       }
     }
 
-    // Device make/model
     const make  = get('exif', 'Make')  || get('Exif', 'Make');
     const model = get('exif', 'Model') || get('Exif', 'Model');
-    if (make || model) {
-      meta.push({ key: 'Perangkat', value: [make, model].filter(Boolean).join(' '), sensitive: true, icon: '📱' });
-    }
+    if (make || model) meta.push({ key: 'Device', value: [make, model].filter(Boolean).join(' '), sensitive: true, icon: '📱' });
 
-    // DateTime
-    const dt = get('exif', 'DateTimeOriginal') || get('Exif', 'DateTimeOriginal')
-             || get('exif', 'DateTime') || get('Exif', 'DateTime');
-    if (dt) {
-      meta.push({ key: 'Waktu Pengambilan', value: dt, sensitive: false, icon: '🕐' });
-    }
+    const dt = get('exif', 'DateTimeOriginal') || get('Exif', 'DateTimeOriginal') || get('exif', 'DateTime') || get('Exif', 'DateTime');
+    if (dt) meta.push({ key: 'Capture Time', value: dt, sensitive: false, icon: '🕐' });
 
-    // Software
     const sw = get('exif', 'Software') || get('Exif', 'Software');
-    if (sw) {
-      meta.push({ key: 'Software', value: sw, sensitive: false, icon: '💻' });
-    }
+    if (sw) meta.push({ key: 'Software', value: sw, sensitive: false, icon: '💻' });
 
-    // Author / Artist
     const artist = get('exif', 'Artist') || get('Exif', 'Artist');
-    if (artist) {
-      meta.push({ key: 'Fotografer / Artist', value: artist, sensitive: true, icon: '👤' });
-    }
+    if (artist) meta.push({ key: 'Photographer / Artist', value: artist, sensitive: true, icon: '👤' });
 
-    // Copyright
     const copy = get('exif', 'Copyright') || get('Exif', 'Copyright');
-    if (copy) {
-      meta.push({ key: 'Copyright', value: copy, sensitive: false, icon: '©️' });
-    }
+    if (copy) meta.push({ key: 'Copyright', value: copy, sensitive: false, icon: '©️' });
 
-    // Camera settings (lens, focal length) – informational
     const focal = get('exif', 'FocalLength') || get('Exif', 'FocalLength');
-    if (focal) {
-      meta.push({ key: 'Focal Length', value: focal, sensitive: false, icon: '🔭' });
-    }
+    if (focal) meta.push({ key: 'Focal Length', value: focal, sensitive: false, icon: '🔭' });
 
-    // Serial number (very sensitive!)
     const serial = get('exif', 'BodySerialNumber') || get('Exif', 'BodySerialNumber')
                 || get('exif', 'CameraSerialNumber') || get('Exif', 'CameraSerialNumber');
-    if (serial) {
-      meta.push({ key: 'Nomor Seri Kamera', value: serial, sensitive: true, icon: '🔢' });
-    }
+    if (serial) meta.push({ key: 'Camera Serial Number', value: serial, sensitive: true, icon: '🔢' });
 
-    // Thumbnail count
     const hasThumb = tags.Thumbnail || tags.thumbnail;
-    if (hasThumb) {
-      meta.push({ key: 'Thumbnail Tersembunyi', value: 'Ada thumbnail EXIF di dalam file', sensitive: true, icon: '🖼️' });
-    }
+    if (hasThumb) meta.push({ key: 'Hidden Thumbnail', value: 'EXIF thumbnail inside file', sensitive: true, icon: '🖼️' });
 
   } catch (e) {
-    // ExifReader may throw if no EXIF; that's okay
     console.info('No EXIF or parse error:', e.message);
   }
 
   entry.metadata = meta;
 }
 
-/* -- PDF via pdf-lib -- */
 async function analyzePDF(idx, buffer) {
   const entry = files[idx];
   const meta = [];
 
   try {
     const pdfDoc = await PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true });
-
     const fields = [
-      { key: 'Judul',          fn: () => pdfDoc.getTitle(),    icon: '📄', sensitive: false },
-      { key: 'Penulis',        fn: () => pdfDoc.getAuthor(),   icon: '👤', sensitive: true  },
-      { key: 'Subjek',         fn: () => pdfDoc.getSubject(),  icon: '📝', sensitive: false },
-      { key: 'Kata Kunci',     fn: () => pdfDoc.getKeywords(), icon: '🔑', sensitive: false },
-      { key: 'Pembuat',        fn: () => pdfDoc.getCreator(),  icon: '💻', sensitive: true  },
-      { key: 'Producer',       fn: () => pdfDoc.getProducer(), icon: '🏭', sensitive: false },
-      { key: 'Tgl Pembuatan',  fn: () => pdfDoc.getCreationDate()?.toISOString?.() || pdfDoc.getCreationDate(), icon: '🕐', sensitive: false },
-      { key: 'Tgl Modifikasi', fn: () => pdfDoc.getModificationDate()?.toISOString?.() || pdfDoc.getModificationDate(), icon: '✏️', sensitive: false },
+      { key: 'Title',          fn: () => pdfDoc.getTitle(),    icon: '📄', sensitive: false },
+      { key: 'Author',        fn: () => pdfDoc.getAuthor(),   icon: '👤', sensitive: true  },
+      { key: 'Subject',       fn: () => pdfDoc.getSubject(),  icon: '📝', sensitive: false },
+      { key: 'Keywords',      fn: () => pdfDoc.getKeywords(), icon: '🔑', sensitive: false },
+      { key: 'Creator',       fn: () => pdfDoc.getCreator(),  icon: '💻', sensitive: true  },
+      { key: 'Producer',      fn: () => pdfDoc.getProducer(), icon: '🏭', sensitive: false },
+      { key: 'Creation Date', fn: () => pdfDoc.getCreationDate()?.toISOString?.() || pdfDoc.getCreationDate(), icon: '🕐', sensitive: false },
+      { key: 'Modification Date', fn: () => pdfDoc.getModificationDate()?.toISOString?.() || pdfDoc.getModificationDate(), icon: '✏️', sensitive: false },
     ];
 
     fields.forEach(({ key, fn, icon, sensitive }) => {
-      try {
-        const val = fn();
-        if (val) meta.push({ key, value: String(val), sensitive, icon });
-      } catch {}
+      try { const val = fn(); if (val) meta.push({ key, value: String(val), sensitive, icon }); } catch {}
     });
-
-  } catch (e) {
-    console.warn('PDF parse error:', e.message);
-  }
+  } catch (e) { console.warn('PDF parse error:', e.message); }
 
   entry.metadata = meta;
 }
 
-/* ============================================================
-   RENDER CARD
-============================================================ */
+/* ============== RENDER CARD =============== */
 function renderCard(idx) {
   const entry = files[idx];
   const { file } = entry;
   const grid = document.getElementById('filesGrid');
-
   const isImage = file.type.startsWith('image/');
   const thumbIcon = file.type === 'application/pdf' ? '📄' : '🖼️';
   const sizeStr = formatSize(file.size);
@@ -1056,422 +953,173 @@ function renderCard(idx) {
   card.id = `card-${idx}`;
   card.innerHTML = `
     <div class="card-header">
-      <div class="card-thumb" id="thumb-${idx}">
-        ${isImage ? '' : thumbIcon}
-      </div>
-      <div class="card-meta">
-        <div class="card-filename" title="${file.name}">${file.name}</div>
-        <div class="card-filesize">${sizeStr} · ${file.type.split('/')[1].toUpperCase()}</div>
-      </div>
-      <span class="card-status-badge badge-processing" id="badge-${idx}">Membaca...</span>
+      <div class="card-thumb" id="thumb-${idx}">${isImage ? '' : thumbIcon}</div>
+      <div class="card-meta"><div class="card-filename" title="${file.name}">${file.name}</div><div class="card-filesize">${sizeStr} · ${file.type.split('/')[1].toUpperCase()}</div></div>
+      <span class="card-status-badge badge-processing" id="badge-${idx}">Reading...</span>
     </div>
     <div id="report-${idx}" class="privacy-report" style="display:none"></div>
-    <div class="progress-wrap" id="progress-wrap-${idx}">
-      <div class="progress-label">
-        <span id="progress-label-${idx}">Memproses...</span>
-        <span id="progress-pct-${idx}">0%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-${idx}"></div>
-      </div>
-    </div>
+    <div class="progress-wrap" id="progress-wrap-${idx}"><div class="progress-label"><span id="progress-label-${idx}">Processing...</span><span id="progress-pct-${idx}">0%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-${idx}"></div></div></div>
     <div id="thumbpair-${idx}"></div>
     <div class="card-footer" id="footer-${idx}">
-      <button class="btn btn-primary btn-sm" id="scrub-btn-${idx}" onclick="scrubOne(${idx})" style="display:none">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
-        Scrub Now
-      </button>
-      <a id="dl-btn-${idx}" class="btn btn-success btn-sm" style="display:none" download>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Cleaned
-      </a>
+      <button class="btn btn-primary btn-sm" id="scrub-btn-${idx}" onclick="scrubOne(${idx})" style="display:none"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Scrub Now</button>
+      <a id="dl-btn-${idx}" class="btn btn-success btn-sm" style="display:none" download><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Cleaned</a>
       <span id="footer-msg-${idx}" style="font-size:12px;color:var(--slate-dim)"></span>
     </div>
   `;
-
   grid.appendChild(card);
-
-  // Generate image thumbnail
   if (isImage) {
     const reader = new FileReader();
-    reader.onload = e => {
-      const thumbEl = document.getElementById(`thumb-${idx}`);
-      thumbEl.innerHTML = `<img src="${e.target.result}" alt="">`;
-      // Save original src for before/after
-      entry.originalSrc = e.target.result;
-    };
+    reader.onload = e => { const thumbEl = document.getElementById(`thumb-${idx}`); thumbEl.innerHTML = `<img src="${e.target.result}" alt="">`; entry.originalSrc = e.target.result; };
     reader.readAsDataURL(file);
   }
 }
 
-/* ============================================================
-   RENDER REPORT
-============================================================ */
+/* ============== RENDER REPORT =============== */
 function renderReport(idx) {
   const entry = files[idx];
   const meta = entry.metadata || [];
   const reportEl = document.getElementById(`report-${idx}`);
   const scrubBtn = document.getElementById(`scrub-btn-${idx}`);
-
   const hasSensitive = meta.some(m => m.sensitive);
 
   if (meta.length === 0) {
-    setCardStatus(idx, 'safe', '✓ Aman');
+    setCardStatus(idx, 'safe', '✓ Safe');
     reportEl.style.display = 'block';
-    reportEl.innerHTML = `
-      <div class="report-title">Privacy Report</div>
-      <ul class="report-list">
-        <li class="report-item safe-item">
-          <span class="report-item-icon">✅</span>
-          <span class="report-item-value">File ini sudah aman – tidak ditemukan data privasi sensitif.</span>
-        </li>
-      </ul>
-    `;
-    setFooterMsg(idx, 'Tidak ada metadata untuk dihapus.');
+    reportEl.innerHTML = `<div class="report-title">Privacy Report</div><ul class="report-list"><li class="report-item safe-item"><span class="report-item-icon">✅</span><span class="report-item-value">This file is safe – no sensitive privacy data found.</span></li></ul>`;
+    setFooterMsg(idx, 'No metadata to remove.');
     return;
   }
 
-  setCardStatus(idx, hasSensitive ? 'warn' : 'info', hasSensitive ? `⚠ ${meta.filter(m=>m.sensitive).length} sensitif` : 'Info saja');
-
+  setCardStatus(idx, hasSensitive ? 'warn' : 'info', hasSensitive ? `⚠ ${meta.filter(m=>m.sensitive).length} sensitive` : 'Info only');
   reportEl.style.display = 'block';
-
-  const listItems = meta.map(m => `
-    <li class="report-item${m.sensitive ? '' : ' safe-item'}" title="${m.sensitive ? 'Data sensitif' : 'Informasi'}">
-      <span class="report-item-icon">${m.icon}</span>
-      <span class="report-item-label">${m.key}:</span>
-      <span class="report-item-value">${escHtml(m.value)}</span>
-    </li>
-  `).join('');
-
-  reportEl.innerHTML = `
-    <div class="report-title">Privacy Report · ${meta.length} item ditemukan</div>
-    <ul class="report-list">${listItems}</ul>
-  `;
-
-  // Show scrub button
+  const listItems = meta.map(m => `<li class="report-item${m.sensitive ? '' : ' safe-item'}" title="${m.sensitive ? 'Sensitive data' : 'Info'}"><span class="report-item-icon">${m.icon}</span><span class="report-item-label">${m.key}:</span><span class="report-item-value">${escHtml(m.value)}</span></li>`).join('');
+  reportEl.innerHTML = `<div class="report-title">Privacy Report · ${meta.length} items found</div><ul class="report-list">${listItems}</ul>`;
   scrubBtn.style.display = 'inline-flex';
 }
 
-/* ============================================================
-   SCRUB FUNCTIONS
-============================================================ */
+/* ============== SCRUB FUNCTIONS =============== */
 async function scrubAll() {
-  const promises = files.map((_, idx) => {
-    if (!files[idx].scrubbed) return scrubOne(idx);
-  });
+  const promises = files.map((_, idx) => { if (!files[idx].scrubbed) return scrubOne(idx); });
   await Promise.all(promises);
   document.getElementById('downloadZipBtn').style.display = 'inline-flex';
-  toast('Semua file berhasil di-scrub! 🎉', 'success');
+  toast('All files scrubbed successfully! 🎉', 'success');
 }
 
 async function scrubOne(idx) {
   const entry = files[idx];
   if (entry.scrubbed) return;
-
   const { file } = entry;
-
-  // Disable scrub button
   const scrubBtn = document.getElementById(`scrub-btn-${idx}`);
   scrubBtn.disabled = true;
   scrubBtn.innerHTML = `<div class="spinner"></div> Scrubbing...`;
-
-  showProgress(idx, true, 'Menghapus metadata...', 30);
-
+  showProgress(idx, true, 'Removing metadata...', 30);
   try {
     let cleanBlob;
-
-    if (file.type === 'application/pdf') {
-      cleanBlob = await scrubPDF(file);
-    } else if (file.type === 'image/jpeg') {
-      cleanBlob = await scrubJPEG(file);
-    } else if (file.type === 'image/png') {
-      cleanBlob = await scrubPNG(file);
-    }
-
-    showProgress(idx, true, 'Selesai!', 100);
+    if (file.type === 'application/pdf') cleanBlob = await scrubPDF(file);
+    else if (file.type === 'image/jpeg') cleanBlob = await scrubJPEG(file);
+    else if (file.type === 'image/png') cleanBlob = await scrubPNG(file);
+    showProgress(idx, true, 'Done!', 100);
     await sleep(500);
     showProgress(idx, false);
-
     entry.cleanedBlob = cleanBlob;
     entry.scrubbed = true;
     cleanedBlobs[idx] = { blob: cleanBlob, filename: 'clean_' + file.name };
-
-    // Set download link
     const dlBtn = document.getElementById(`dl-btn-${idx}`);
     dlBtn.href = URL.createObjectURL(cleanBlob);
     dlBtn.download = 'clean_' + file.name;
     dlBtn.style.display = 'inline-flex';
     scrubBtn.style.display = 'none';
-
     setCardStatus(idx, 'clean', '✓ Clean');
     document.getElementById(`card-${idx}`).classList.add('scrubbed');
-
-    // Show before/after for images
-    if (file.type.startsWith('image/') && entry.originalSrc) {
-      renderBeforeAfter(idx, entry.originalSrc, cleanBlob);
-    }
-
-    setFooterMsg(idx, `Metadata dihapus. Ukuran bersih: ${formatSize(cleanBlob.size)}`);
-    toast(`${file.name} berhasil di-scrub!`, 'success');
-
-    // Show download all button if more than 1 file
-    if (files.length > 1) {
-      document.getElementById('downloadZipBtn').style.display = 'inline-flex';
-    }
-
+    if (file.type.startsWith('image/') && entry.originalSrc) renderBeforeAfter(idx, entry.originalSrc, cleanBlob);
+    setFooterMsg(idx, `Metadata removed. Clean size: ${formatSize(cleanBlob.size)}`);
+    toast(`${file.name} scrubbed successfully!`, 'success');
+    if (files.length > 1) document.getElementById('downloadZipBtn').style.display = 'inline-flex';
   } catch (err) {
     console.error('Scrub error:', err);
     showProgress(idx, false);
     scrubBtn.disabled = false;
-    scrubBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Coba Lagi`;
-    toast(`Gagal memproses ${file.name}: ${err.message}`, 'error');
+    scrubBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Try Again`;
+    toast(`Failed to process ${file.name}: ${err.message}`, 'error');
   }
 }
 
-/* -- Scrub JPEG: piexif.remove() → ArrayBuffer → Blob -- */
 async function scrubJPEG(file) {
   const buffer = await file.arrayBuffer();
   const binary = arrayBufferToBinaryString(buffer);
-
-  let cleaned;
   try {
-    // piexif.remove() removes all EXIF from JPEG binary string
-    cleaned = piexif.remove(binary);
-  } catch {
-    // Fallback: canvas re-encode
-    return await canvasScrub(file);
-  }
-
-  const bytes = binaryStringToUint8Array(cleaned);
-  return new Blob([bytes], { type: 'image/jpeg' });
+    const cleaned = piexif.remove(binary);
+    return new Blob([binaryStringToUint8Array(cleaned)], { type: 'image/jpeg' });
+  } catch { return await canvasScrub(file); }
 }
-
-/* -- Scrub PNG: canvas drawImage → toBlob (strips all metadata) -- */
-async function scrubPNG(file) {
-  return await canvasScrub(file);
-}
-
-/* -- Canvas-based scrub (universal image fallback) -- */
+async function scrubPNG(file) { return await canvasScrub(file); }
 function canvasScrub(file) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
       URL.revokeObjectURL(url);
-      const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-      canvas.toBlob(blob => {
-        if (blob) resolve(blob);
-        else reject(new Error('Canvas toBlob failed'));
-      }, mimeType, 0.95);
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Canvas toBlob failed')), file.type, 0.95);
     };
     img.onerror = () => reject(new Error('Image load failed'));
     img.src = url;
   });
 }
-
-/* -- Scrub PDF: pdf-lib clear all /Info fields -- */
 async function scrubPDF(file) {
   const buffer = await file.arrayBuffer();
   const pdfDoc = await PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true });
-
-  // Blank out all metadata fields
-  pdfDoc.setTitle('');
-  pdfDoc.setAuthor('');
-  pdfDoc.setSubject('');
-  pdfDoc.setKeywords([]);
-  pdfDoc.setCreator('');
-  pdfDoc.setProducer('');
-  // Remove custom metadata if any
+  pdfDoc.setTitle(''); pdfDoc.setAuthor(''); pdfDoc.setSubject(''); pdfDoc.setKeywords([]); pdfDoc.setCreator(''); pdfDoc.setProducer('');
   try { pdfDoc.catalog.delete(PDFLib.PDFName.of('Metadata')); } catch {}
-
-  const cleaned = await pdfDoc.save();
-  return new Blob([cleaned], { type: 'application/pdf' });
+  return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 }
 
-/* ============================================================
-   BEFORE / AFTER THUMBNAILS
-============================================================ */
+/* ============== BEFORE/AFTER THUMBNAILS =============== */
 function renderBeforeAfter(idx, originalSrc, cleanBlob) {
   const cleanUrl = URL.createObjectURL(cleanBlob);
-  const container = document.getElementById(`thumbpair-${idx}`);
-  container.innerHTML = `
-    <div class="thumb-pair">
-      <div class="thumb-col">
-        <div class="thumb-col-label">Sebelum</div>
-        <img class="thumb-img" src="${originalSrc}" alt="Before">
-      </div>
-      <div class="thumb-separator">→</div>
-      <div class="thumb-col">
-        <div class="thumb-col-label">Sesudah (Bersih)</div>
-        <img class="thumb-img" src="${cleanUrl}" alt="After">
-      </div>
-    </div>
-  `;
+  document.getElementById(`thumbpair-${idx}`).innerHTML = `<div class="thumb-pair"><div class="thumb-col"><div class="thumb-col-label">Before</div><img class="thumb-img" src="${originalSrc}" alt="Before"></div><div class="thumb-separator">→</div><div class="thumb-col"><div class="thumb-col-label">After (Clean)</div><img class="thumb-img" src="${cleanUrl}" alt="After"></div></div>`;
 }
 
-/* ============================================================
-   DOWNLOAD ALL AS ZIP
-============================================================ */
+/* ============== DOWNLOAD ALL AS ZIP =============== */
 async function downloadAll() {
   const zip = new JSZip();
   let count = 0;
-
-  cleanedBlobs.forEach((item, idx) => {
-    if (item && item.blob) {
-      zip.file(item.filename, item.blob);
-      count++;
-    }
-  });
-
-  if (count === 0) {
-    toast('Belum ada file yang di-scrub.', 'warn');
-    return;
-  }
-
-  toast('Membuat ZIP...', 'success');
-
+  cleanedBlobs.forEach((item) => { if (item && item.blob) { zip.file(item.filename, item.blob); count++; } });
+  if (count === 0) { toast('No scrubbed files yet.', 'warn'); return; }
+  toast('Creating ZIP...', 'success');
   const zipBtn = document.getElementById('downloadZipBtn');
   zipBtn.disabled = true;
   zipBtn.innerHTML = `<div class="spinner" style="border-color:rgba(0,0,0,0.2);border-top-color:var(--navy)"></div> Generating...`;
-
   try {
     const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `muhaajir-scrub-${Date.now()}.zip`;
-    a.click();
+    const a = document.createElement('a'); a.href = url; a.download = `muhaajir-scrub-${Date.now()}.zip`; a.click();
     URL.revokeObjectURL(url);
-    toast(`ZIP berhasil dibuat (${count} file) 🎉`, 'success');
-  } catch (e) {
-    toast('Gagal membuat ZIP: ' + e.message, 'error');
-  }
-
+    toast(`ZIP created successfully (${count} files) 🎉`, 'success');
+  } catch (e) { toast('Failed to create ZIP: ' + e.message, 'error'); }
   zipBtn.disabled = false;
   zipBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All ZIP`;
 }
 
-/* ============================================================
-   CLEAR ALL
-============================================================ */
-function clearAll() {
-  files.length = 0;
-  cleanedBlobs.length = 0;
-  document.getElementById('filesGrid').innerHTML = '';
-  document.getElementById('filesSection').style.display = 'none';
-  document.getElementById('actionBar').classList.remove('visible');
-  document.getElementById('downloadZipBtn').style.display = 'none';
-  toast('Semua file dihapus.', 'success');
-}
+/* ============== CLEAR ALL =============== */
+function clearAll() { files.length = 0; cleanedBlobs.length = 0; document.getElementById('filesGrid').innerHTML = ''; document.getElementById('filesSection').style.display = 'none'; document.getElementById('actionBar').classList.remove('visible'); document.getElementById('downloadZipBtn').style.display = 'none'; toast('All files cleared.', 'success'); }
 
-/* ============================================================
-   UI HELPERS
-============================================================ */
-function updateUI() {
-  const hasFiles = files.length > 0;
-  document.getElementById('actionBar').classList.toggle('visible', hasFiles);
-  document.getElementById('filesSection').style.display = hasFiles ? 'block' : 'none';
-}
-
-function setCardStatus(idx, type, label) {
-  const badge = document.getElementById(`badge-${idx}`);
-  badge.className = 'card-status-badge';
-  if (type === 'warn')       badge.classList.add('badge-warn');
-  else if (type === 'safe')  badge.classList.add('badge-safe');
-  else if (type === 'clean') badge.classList.add('badge-clean');
-  else                       badge.classList.add('badge-processing');
-  badge.textContent = label;
-}
-
-function showProgress(idx, show, label = '', pct = 0) {
-  const wrap  = document.getElementById(`progress-wrap-${idx}`);
-  const bar   = document.getElementById(`progress-${idx}`);
-  const lbl   = document.getElementById(`progress-label-${idx}`);
-  const pctEl = document.getElementById(`progress-pct-${idx}`);
-  wrap.style.display = show ? 'block' : 'none';
-  if (show) {
-    bar.style.width = pct + '%';
-    lbl.textContent = label;
-    pctEl.textContent = pct + '%';
-  }
-}
-
-function setFooterMsg(idx, msg) {
-  const el = document.getElementById(`footer-msg-${idx}`);
-  if (el) el.textContent = msg;
-}
-
-/* ============================================================
-   TOAST
-============================================================ */
-function toast(msg, type = 'success') {
-  const container = document.getElementById('toastContainer');
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  const icons = { success: '✅', error: '❌', warn: '⚠️' };
-  el.innerHTML = `<span>${icons[type] || '💬'}</span><span>${msg}</span>`;
-  container.appendChild(el);
-  setTimeout(() => {
-    el.style.transition = 'opacity 0.4s';
-    el.style.opacity = '0';
-    setTimeout(() => el.remove(), 400);
-  }, 3500);
-}
-
-/* ============================================================
-   UTILITY FUNCTIONS
-============================================================ */
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
-}
-
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
+/* ============== UI HELPERS =============== */
+function updateUI() { const hasFiles = files.length > 0; document.getElementById('actionBar').classList.toggle('visible', hasFiles); document.getElementById('filesSection').style.display = hasFiles ? 'block' : 'none'; }
+function setCardStatus(idx, type, label) { const badge = document.getElementById(`badge-${idx}`); badge.className = 'card-status-badge'; if (type === 'warn') badge.classList.add('badge-warn'); else if (type === 'safe') badge.classList.add('badge-safe'); else if (type === 'clean') badge.classList.add('badge-clean'); else badge.classList.add('badge-processing'); badge.textContent = label; }
+function showProgress(idx, show, label = '', pct = 0) { const wrap = document.getElementById(`progress-wrap-${idx}`); if (!wrap) return; wrap.style.display = show ? 'block' : 'none'; if (show) { document.getElementById(`progress-${idx}`).style.width = pct + '%'; document.getElementById(`progress-label-${idx}`).textContent = label; document.getElementById(`progress-pct-${idx}`).textContent = pct + '%'; } }
+function setFooterMsg(idx, msg) { const el = document.getElementById(`footer-msg-${idx}`); if (el) el.textContent = msg; }
+function toast(msg, type = 'success') { const container = document.getElementById('toastContainer'); const el = document.createElement('div'); el.className = `toast ${type}`; const icons = { success: '✅', error: '❌', warn: '⚠️' }; el.innerHTML = `<span>${icons[type] || '💬'}</span><span>${msg}</span>`; container.appendChild(el); setTimeout(() => { el.style.transition = 'opacity 0.4s'; el.style.opacity = '0'; setTimeout(() => el.remove(), 400); }, 3500); }
+function formatSize(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'; return (bytes / (1024 * 1024)).toFixed(2) + ' MB'; }
+function escHtml(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function arrayBufferToBinaryString(buffer) { const bytes = new Uint8Array(buffer); let bin = ''; for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]); return bin; }
+function binaryStringToUint8Array(str) { const arr = new Uint8Array(str.length); for (let i = 0; i < str.length; i++) arr[i] = str.charCodeAt(i); return arr; }
+function waitForPDFLib() { return new Promise(resolve => { if (window.PDFLib) resolve(); else { const check = setInterval(() => { if (window.PDFLib) { clearInterval(check); resolve(); } }, 100); } }); }
 
-// ArrayBuffer → binary string (for piexif)
-function arrayBufferToBinaryString(buffer) {
-  const bytes = new Uint8Array(buffer);
-  let bin = '';
-  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-  return bin;
-}
-
-// Binary string → Uint8Array
-function binaryStringToUint8Array(str) {
-  const arr = new Uint8Array(str.length);
-  for (let i = 0; i < str.length; i++) arr[i] = str.charCodeAt(i);
-  return arr;
-}
-
-// Wait for pdf-lib global
-function waitForPDFLib() {
-  return new Promise(resolve => {
-    if (window.PDFLib) { resolve(); return; }
-    const check = setInterval(() => {
-      if (window.PDFLib) { clearInterval(check); resolve(); }
-    }, 100);
-  });
-}
-
-// Initialize on load
-window.addEventListener('load', async () => {
-  await waitForPDFLib();
-  console.log('Muhaajir Scrub ready – all libs loaded.');
-});
+window.addEventListener('load', async () => { await waitForPDFLib(); console.log('Muhaajir Scrub ready – all libs loaded.'); });
 </script>
 </body>
 </html>
