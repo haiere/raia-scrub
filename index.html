@@ -15,6 +15,31 @@
     <meta name="twitter:title" content="Raia Scrub – Clean Your Digital Trail" />
     <meta name="twitter:description" content="Remove sensitive metadata from JPG, PNG, and PDF — 100% local." />
     <link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Raia Scrub",
+            "description": "Remove sensitive metadata from images and PDFs 100% in your browser.",
+            "applicationCategory": "Privacy Tool",
+            "browserRequirements": "Requires JavaScript",
+            "operatingSystem": "All",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/ExifReader.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/piexifjs@latest">
@@ -23,9 +48,11 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/jszip@latest/dist/jszip.min.js">
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
     <style>
+        /* ============================================================
+               CSS CUSTOM PROPERTIES (保持不变的颜色)
+               ============================================================ */
         :root {
             --navy: #020617;
             --navy-mid: #0f172a;
@@ -41,11 +68,21 @@
             --red: #ef4444;
             --red-soft: rgba(239, 68, 68, 0.12);
             --emerald-soft: rgba(16, 185, 129, 0.12);
-            --radius: 14px;
-            --radius-sm: 8px;
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+            /* Glass tokens */
+            --glass-bg: rgba(15, 23, 42, 0.55);
+            --glass-border: rgba(148, 163, 184, 0.12);
+            --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            --glass-blur: 18px;
+            --radius-card: 20px;
+            --radius-btn: 99px;
+            --radius-sm: 10px;
+            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        /* ============================================================
+               RESET & BASE
+               ============================================================ */
         *,
         *::before,
         *::after {
@@ -55,194 +92,418 @@
         }
         html {
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
             background: var(--navy);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            line-height: 1.6;
         }
+
+        /* Subtle grid background */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px);
+            background-size: 48px 48px;
             pointer-events: none;
             z-index: 0;
         }
+        /* Soft radial glow */
         body::after {
             content: '';
             position: fixed;
-            top: -200px;
-            right: -200px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            top: -240px;
+            right: -240px;
+            width: 720px;
+            height: 720px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
-        .wrapper {
+
+        /* ============================================================
+               LAYOUT
+               ============================================================ */
+        .app-wrapper {
             position: relative;
             z-index: 1;
-            max-width: 920px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px 80px;
+            padding: 0 24px 60px;
         }
-        header {
+
+        /* ============================================================
+               HEADER – Fixed Glass
+               ============================================================ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 14px 24px;
+            background: rgba(2, 6, 23, 0.4);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+            transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+            will-change: transform;
+        }
+        .site-header.scrolled {
+            background: rgba(2, 6, 23, 0.78);
+            border-bottom-color: rgba(148, 163, 184, 0.1);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+        }
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 18px;
-            padding: 32px 0 24px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-            margin-bottom: 48px;
-            flex-wrap: wrap;
-            animation: fadeDown 0.7s var(--transition-smooth) both;
+            justify-content: space-between;
+            gap: 16px;
         }
-        @keyframes fadeDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-18px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        /* Brand */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
         }
-        .header-logo {
-            height: 60px;
+        .brand-logo {
+            height: 44px;
             width: auto;
             object-fit: contain;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.35));
-            transition: transform 0.4s var(--transition-smooth);
+            filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.25));
+            transition: transform var(--transition);
         }
-        .header-logo:hover {
-            transform: scale(1.04) rotate(-1deg);
+        .brand-logo:hover {
+            transform: scale(1.05) rotate(-1deg);
         }
-        .header-text {
-            flex: 1;
-        }
-        .header-title {
+        .brand-text {
             font-family: 'Syne', sans-serif;
             font-weight: 800;
-            font-size: clamp(24px, 4.4vw, 34px);
+            font-size: 22px;
+            letter-spacing: -0.3px;
             color: var(--text);
-            letter-spacing: -0.5px;
-            line-height: 1.1;
+            line-height: 1;
         }
-        .header-title span {
+        .brand-text span {
             color: var(--blue);
             position: relative;
         }
-        .header-title span::after {
+        .brand-text span::after {
             content: '';
             position: absolute;
             left: 0;
             bottom: -2px;
             width: 100%;
-            height: 3px;
+            height: 2.5px;
             background: linear-gradient(90deg, var(--blue), transparent);
             border-radius: 99px;
-            opacity: 0.5;
+            opacity: 0.4;
         }
-        .header-tagline {
-            margin-top: 5px;
-            font-size: 14px;
-            color: var(--slate);
-            font-weight: 400;
-            letter-spacing: 0.3px;
-        }
-        .header-badge {
+        .brand-badge {
             background: var(--emerald-soft);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.25);
             color: var(--emerald);
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
-            padding: 5px 14px;
+            padding: 3px 12px;
             border-radius: 99px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             white-space: nowrap;
-            align-self: flex-start;
-            margin-top: 4px;
             backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
+            transition: all var(--transition);
+            margin-left: 4px;
         }
-        .header-badge:hover {
+        .brand-badge:hover {
             background: rgba(16, 185, 129, 0.2);
-            border-color: rgba(16, 185, 129, 0.5);
-            transform: scale(1.03);
+            border-color: rgba(16, 185, 129, 0.45);
+            transform: scale(1.04);
         }
+
+        /* Desktop nav */
+        .nav-desktop {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .nav-desktop a {
+            color: var(--slate);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color var(--transition);
+            position: relative;
+        }
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            border-radius: 99px;
+            transition: width var(--transition);
+        }
+        .nav-desktop a:hover {
+            color: var(--text);
+        }
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+        .nav-desktop .nav-cta {
+            background: var(--blue);
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: var(--radius-btn);
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            transition: all var(--transition);
+        }
+        .nav-desktop .nav-cta:hover {
+            background: var(--blue-dark);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+        .nav-desktop .nav-cta::after {
+            display: none;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: background var(--transition);
+        }
+        .hamburger:hover {
+            background: rgba(148, 163, 184, 0.06);
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text);
+            border-radius: 99px;
+            transition: all var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        /* Mobile nav overlay */
+        .nav-mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(2, 6, 23, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+        }
+        .nav-mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            max-width: 80vw;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(148, 163, 184, 0.08);
+            padding: 80px 32px 32px;
+            transform: translateX(100%);
+            transition: transform var(--transition);
+            z-index: 1000;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .nav-mobile.open {
+            transform: translateX(0);
+        }
+        .nav-mobile a {
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+            transition: color var(--transition);
+        }
+        .nav-mobile a:hover {
+            color: var(--blue);
+        }
+        .nav-mobile .nav-mobile-cta {
+            background: var(--blue);
+            color: #fff !important;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            text-align: center;
+            font-weight: 600;
+            border-bottom: none;
+            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+        .nav-mobile .nav-mobile-cta:hover {
+            background: var(--blue-dark);
+        }
+
+        /* ============================================================
+               HERO / DROP ZONE
+               ============================================================ */
+        .hero {
+            padding-top: 100px;
+            margin-bottom: 28px;
+        }
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(32px, 5.5vw, 52px);
+            letter-spacing: -0.02em;
+            line-height: 1.08;
+            margin-bottom: 12px;
+            animation: fadeDown 0.7s var(--transition) both;
+        }
+        .hero-title span {
+            color: var(--blue);
+            position: relative;
+        }
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), transparent);
+            border-radius: 99px;
+            opacity: 0.35;
+        }
+        .hero-sub {
+            font-size: clamp(15px, 1.4vw, 19px);
+            color: var(--slate);
+            max-width: 560px;
+            margin-bottom: 28px;
+            font-weight: 400;
+            animation: fadeDown 0.7s var(--transition) 0.08s both;
+        }
+
+        /* Glass drop zone */
         .drop-zone {
-            border: 2px dashed rgba(148, 163, 184, 0.3);
-            border-radius: var(--radius);
-            background: var(--navy-mid);
+            border: 1.5px dashed rgba(148, 163, 184, 0.2);
+            border-radius: var(--radius-card);
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
             padding: 56px 32px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.35s var(--transition-smooth);
+            transition: all var(--transition);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-card);
+            box-shadow: var(--glass-shadow);
         }
         .drop-zone::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05), transparent 70%);
+            background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.06), transparent 70%);
             opacity: 0;
-            transition: opacity 0.4s var(--transition-smooth);
+            transition: opacity var(--transition);
+            pointer-events: none;
         }
         .drop-zone:hover,
         .drop-zone.drag-over {
-            border-color: var(--blue);
-            background: rgba(59, 130, 246, 0.06);
-            box-shadow: 0 0 0 4px var(--blue-glow), inset 0 0 60px rgba(59, 130, 246, 0.06);
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(15, 23, 42, 0.7);
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.15), 0 12px 48px rgba(0, 0, 0, 0.5);
             transform: scale(1.005);
         }
         .drop-zone:hover::before,
         .drop-zone.drag-over::before {
             opacity: 1;
         }
+
         .drop-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 76px;
-            height: 76px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.15);
             margin-bottom: 20px;
-            transition: all 0.4s var(--transition-smooth);
+            transition: all var(--transition);
         }
         .drop-zone:hover .drop-icon {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.3);
-            background: rgba(59, 130, 246, 0.18);
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.25);
+            background: rgba(59, 130, 246, 0.14);
         }
         .drop-icon svg {
-            width: 34px;
-            height: 34px;
-            transition: transform 0.4s ease;
+            width: 36px;
+            height: 36px;
+            stroke: var(--blue);
+            transition: transform var(--transition);
         }
         .drop-zone:hover .drop-icon svg {
             transform: translateY(-2px);
         }
+
         .drop-title {
             font-family: 'Syne', sans-serif;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .drop-subtitle {
             font-size: 14px;
             color: var(--slate);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             line-height: 1.6;
+        }
+        .drop-subtitle small {
+            font-size: 12px;
+            color: var(--slate-dim);
         }
         .drop-formats {
             display: inline-flex;
@@ -251,21 +512,20 @@
             justify-content: center;
         }
         .format-tag {
-            background: rgba(148, 163, 184, 0.08);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(148, 163, 184, 0.06);
+            border: 1px solid rgba(148, 163, 184, 0.12);
             color: var(--slate);
             font-size: 12px;
             font-weight: 600;
-            padding: 5px 13px;
-            border-radius: 6px;
-            letter-spacing: 0.5px;
-            transition: all 0.25s ease;
+            padding: 4px 14px;
+            border-radius: 99px;
+            letter-spacing: 0.3px;
+            transition: all var(--transition);
         }
         .format-tag.active {
-            background: rgba(59, 130, 246, 0.12);
-            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.25);
             color: var(--blue);
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
         }
         .format-tag:hover {
             transform: translateY(-2px);
@@ -273,169 +533,228 @@
         #fileInput {
             display: none;
         }
+
+        /* ============================================================
+               EDUCATION BOX
+               ============================================================ */
         .edu-box {
             margin-top: 22px;
-            background: rgba(239, 68, 68, 0.06);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.15);
             border-radius: var(--radius-sm);
-            padding: 18px 20px;
+            padding: 18px 22px;
             display: flex;
             gap: 14px;
             align-items: flex-start;
-            animation: fadeUp 0.8s var(--transition-smooth) 0.15s both;
-        }
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            animation: fadeUp 0.8s var(--transition) 0.15s both;
+            backdrop-filter: blur(4px);
         }
         .edu-icon {
             font-size: 20px;
             flex-shrink: 0;
-            margin-top: 1px;
+            margin-top: 2px;
         }
         .edu-text {
-            font-size: 13px;
-            color: rgba(239, 68, 68, 0.9);
+            font-size: 13.5px;
+            color: rgba(239, 68, 68, 0.85);
             line-height: 1.6;
         }
         .edu-text strong {
             color: var(--red);
         }
+
+        /* ============================================================
+               ACTION BAR
+               ============================================================ */
         .action-bar {
             display: none;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            margin-top: 32px;
+            margin-top: 28px;
             flex-wrap: wrap;
-            animation: fadeUp 0.6s var(--transition-smooth) both;
+            animation: fadeUp 0.6s var(--transition) both;
         }
         .action-bar.visible {
             display: flex;
         }
+        .action-bar .action-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        /* ============================================================
+               BUTTONS
+               ============================================================ */
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 11px 24px;
-            border-radius: var(--radius-sm);
-            font-family: 'DM Sans', sans-serif;
+            padding: 11px 26px;
+            border-radius: var(--radius-btn);
+            font-family: 'Inter', 'DM Sans', sans-serif;
             font-size: 14px;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: all 0.25s var(--transition-smooth);
+            transition: all var(--transition);
             text-decoration: none;
             white-space: nowrap;
             letter-spacing: 0.2px;
             position: relative;
             overflow: hidden;
+            line-height: 1.4;
         }
         .btn:active {
             transform: scale(0.96);
         }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
         .btn-primary {
             background: var(--blue);
             color: #fff;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+            box-shadow: 0 4px 24px rgba(59, 130, 246, 0.35);
         }
         .btn-primary:hover:not(:disabled) {
             background: var(--blue-dark);
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 8px 40px rgba(59, 130, 246, 0.5);
             transform: translateY(-2px);
         }
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+
         .btn-ghost {
-            background: transparent;
+            background: rgba(148, 163, 184, 0.05);
             color: var(--slate);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid rgba(148, 163, 184, 0.12);
         }
-        .btn-ghost:hover {
-            border-color: rgba(148, 163, 184, 0.4);
+        .btn-ghost:hover:not(:disabled) {
+            border-color: rgba(148, 163, 184, 0.3);
             color: var(--text);
-            background: rgba(148, 163, 184, 0.06);
+            background: rgba(148, 163, 184, 0.08);
             transform: translateY(-2px);
         }
+
         .btn-success {
             background: var(--emerald);
             color: #fff;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 24px rgba(16, 185, 129, 0.3);
         }
-        .btn-success:hover {
+        .btn-success:hover:not(:disabled) {
             background: #059669;
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 36px rgba(16, 185, 129, 0.4);
         }
+
         .btn-sm {
-            padding: 7px 16px;
+            padding: 7px 18px;
             font-size: 12.5px;
         }
+
         .btn .spinner {
             width: 16px;
             height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-top-color: #fff;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             flex-shrink: 0;
+        }
+        .btn-ghost .spinner {
+            border-color: rgba(148, 163, 184, 0.2);
+            border-top-color: var(--slate);
         }
         @keyframes spin {
             to {
                 transform: rotate(360deg);
             }
         }
+
+        /* ============================================================
+               FILES GRID
+               ============================================================ */
         #filesGrid {
             display: grid;
-            gap: 22px;
-            margin-top: 28px;
+            gap: 24px;
+            margin-top: 24px;
         }
+
+        /* Glass file card */
         .file-card {
-            background: var(--navy-mid);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: var(--radius);
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid rgba(148, 163, 184, 0.06);
+            border-radius: var(--radius-card);
             overflow: hidden;
-            animation: slideIn 0.45s var(--transition-smooth) both;
-            transition: border-color 0.3s ease, box-shadow 0.4s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.45s var(--transition) both;
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
         .file-card:hover {
-            border-color: rgba(148, 163, 184, 0.2);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(148, 163, 184, 0.12);
+            box-shadow: 0 8px 48px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
         }
         .file-card.scrubbed {
-            border-color: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.2);
         }
+
         @keyframes slideIn {
             0% {
                 opacity: 0;
-                transform: translateY(24px) scale(0.98);
+                transform: translateY(28px) scale(0.97);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
+        @keyframes fadeDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
         .card-header {
             display: flex;
             align-items: center;
             gap: 14px;
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.04);
         }
         .card-thumb {
             width: 48px;
             height: 48px;
-            border-radius: 10px;
+            border-radius: 12px;
             object-fit: cover;
             background: var(--navy-light);
             flex-shrink: 0;
@@ -444,7 +763,8 @@
             justify-content: center;
             font-size: 22px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform var(--transition);
+            border: 1px solid rgba(148, 163, 184, 0.06);
         }
         .card-thumb:hover {
             transform: scale(1.05);
@@ -475,50 +795,44 @@
         .card-status-badge {
             font-size: 11px;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 99px;
             flex-shrink: 0;
-            letter-spacing: 0.4px;
-            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            transition: all var(--transition);
         }
         .badge-warn {
-            background: rgba(239, 68, 68, 0.12);
+            background: rgba(239, 68, 68, 0.1);
             color: var(--red);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
         .badge-safe {
             background: var(--emerald-soft);
             color: var(--emerald);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         .badge-clean {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.08);
             color: var(--blue);
-            border: 1px solid rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
         .badge-processing {
-            background: rgba(148, 163, 184, 0.1);
+            background: rgba(148, 163, 184, 0.06);
             color: var(--slate);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid rgba(148, 163, 184, 0.1);
         }
+
+        /* Privacy report */
         .privacy-report {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
-            animation: fadeIn 0.5s var(--transition-smooth) both;
-        }
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            border-bottom: 1px solid rgba(148, 163, 184, 0.04);
+            animation: fadeIn 0.5s var(--transition) both;
         }
         .report-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             color: var(--slate-dim);
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
             margin-bottom: 10px;
         }
@@ -534,21 +848,21 @@
             gap: 10px;
             font-size: 12.5px;
             line-height: 1.5;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px solid rgba(239, 68, 68, 0.1);
-            transition: all 0.25s ease;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.04);
+            border: 1px solid rgba(239, 68, 68, 0.06);
+            transition: all var(--transition);
         }
         .report-item:hover {
-            background: rgba(239, 68, 68, 0.08);
+            background: rgba(239, 68, 68, 0.07);
         }
         .report-item.safe-item {
             background: var(--emerald-soft);
-            border-color: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.08);
         }
         .report-item.safe-item:hover {
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.12);
         }
         .report-item-icon {
             font-size: 14px;
@@ -565,9 +879,11 @@
             color: var(--text-soft);
             word-break: break-word;
         }
+
+        /* Progress */
         .progress-wrap {
             padding: 12px 20px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.04);
             display: none;
         }
         .progress-label {
@@ -578,8 +894,8 @@
             justify-content: space-between;
         }
         .progress-bar-bg {
-            height: 5px;
-            background: rgba(148, 163, 184, 0.1);
+            height: 4px;
+            background: rgba(148, 163, 184, 0.08);
             border-radius: 99px;
             overflow: hidden;
         }
@@ -588,21 +904,16 @@
             background: linear-gradient(90deg, var(--blue), #60a5fa);
             border-radius: 99px;
             width: 0%;
-            transition: width 0.5s var(--transition-smooth);
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+            transition: width 0.5s var(--transition);
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
         }
-        .card-footer {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 20px;
-            flex-wrap: wrap;
-        }
+
+        /* Before / after */
         .thumb-pair {
             display: flex;
             gap: 16px;
             padding: 14px 20px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.04);
             flex-wrap: wrap;
             background: rgba(0, 0, 0, 0.15);
         }
@@ -613,19 +924,19 @@
         .thumb-col-label {
             font-size: 10px;
             font-weight: 600;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
             color: var(--slate-dim);
             text-transform: uppercase;
-            margin-bottom: 7px;
+            margin-bottom: 6px;
         }
         .thumb-img {
             width: 100%;
             max-height: 110px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             background: var(--navy-light);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            transition: transform 0.3s ease;
+            border: 1px solid rgba(148, 163, 184, 0.06);
+            transition: transform var(--transition);
         }
         .thumb-img:hover {
             transform: scale(1.02);
@@ -637,137 +948,20 @@
             font-size: 20px;
             padding-top: 24px;
         }
-        #toastContainer {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            z-index: 9999;
+
+        .card-footer {
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 12px;
-            align-items: flex-end;
-            pointer-events: none;
-        }
-        .toast {
-            background: var(--navy-light);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            color: var(--text-soft);
-            font-size: 13px;
             padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-            animation: toastIn 0.4s var(--transition-smooth) both;
-            max-width: 340px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(8px);
-            background: rgba(15, 23, 42, 0.92);
-            pointer-events: auto;
-        }
-        .toast.success {
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        .toast.error {
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-        .toast.warn {
-            border-color: rgba(234, 179, 8, 0.3);
-        }
-        @keyframes toastIn {
-            0% {
-                opacity: 0;
-                transform: translateX(30px) scale(0.96);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-        footer {
-            text-align: center;
-            padding: 32px 0 0;
-            border-top: 1px solid rgba(148, 163, 184, 0.08);
-            margin-top: 60px;
-            color: var(--slate-dim);
-            font-size: 12px;
-            line-height: 1.8;
-        }
-        .footer-logo {
-            width: 64px;
-            height: auto;
-            margin-bottom: 12px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
-            transition: transform 0.4s ease;
-        }
-        .footer-logo:hover {
-            transform: scale(1.06) rotate(-1deg);
-        }
-        .footer-name {
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text);
-            letter-spacing: -0.3px;
-        }
-        .footer-tagline {
-            font-size: 13px;
-            color: var(--slate);
-            margin-top: 4px;
-        }
-        .privacy-note {
-            margin: 16px auto 0;
-            font-size: .9rem;
-            color: #ccc;
-            max-width: 600px;
-            padding: 0 10px;
-        }
-        .privacy-note i {
-            font-style: normal;
-        }
-        .ft-lnks {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
             flex-wrap: wrap;
-            margin-top: 16px;
         }
-        .ft-lnks a {
-            color: var(--blue);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 13px;
-            transition: color .2s ease;
-        }
-        .ft-lnks a:hover {
-            color: #60a5fa;
-            text-decoration: underline;
-        }
-        .footer-divider {
-            width: 60px;
-            height: 2px;
-            background: rgba(148, 163, 184, 0.15);
-            margin: 18px auto;
-            border-radius: 99px;
-        }
-        .footer-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            font-size: .85em;
-            opacity: .8;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 10px 10px;
-        }
+
+        /* Section label */
         .section-label {
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--slate-dim);
             margin-bottom: 14px;
@@ -780,55 +974,85 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(148, 163, 184, 0.12);
+            background: rgba(148, 163, 184, 0.06);
         }
-        @media (max-width:640px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
+
+        /* ============================================================
+               TOAST
+               ============================================================ */
+        #toastContainer {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+            pointer-events: none;
+            max-width: 90vw;
+        }
+        .toast {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            color: var(--text-soft);
+            font-size: 13px;
+            padding: 14px 22px;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+            animation: toastIn 0.4s var(--transition) both;
+            max-width: 380px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: auto;
+            line-height: 1.5;
+        }
+        .toast.success {
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+        .toast.error {
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+        .toast.warn {
+            border-color: rgba(234, 179, 8, 0.2);
+        }
+        @keyframes toastIn {
+            0% {
+                opacity: 0;
+                transform: translateX(30px) scale(0.95);
             }
-            .drop-zone {
-                padding: 40px 18px;
-            }
-            .action-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn {
-                justify-content: center;
-            }
-            .thumb-pair {
-                flex-direction: column;
-            }
-            .thumb-separator {
-                padding-top: 4px;
-                justify-content: center;
-            }
-            .footer-meta {
-                flex-direction: column;
-                gap: 6px;
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
             }
         }
+
+        /* ============================================================
+               COOKIE BANNER
+               ============================================================ */
         #cookieBanner {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(2, 6, 23, 0.92);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(148, 163, 184, 0.15);
-            padding: 18px 24px;
+            background: rgba(2, 6, 23, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(148, 163, 184, 0.06);
+            padding: 18px 28px;
             z-index: 10000;
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 16px 24px;
+            gap: 16px 28px;
             font-size: 13px;
             color: var(--text-soft);
-            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
-            animation: slideUp 0.5s var(--transition-smooth) both;
+            box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.5s var(--transition) both;
         }
         @keyframes slideUp {
             0% {
@@ -844,7 +1068,7 @@
             color: var(--blue);
             text-decoration: none;
             font-weight: 500;
-            transition: color .2s;
+            transition: color var(--transition);
         }
         #cookieBanner a:hover {
             color: #60a5fa;
@@ -856,19 +1080,19 @@
             flex-wrap: wrap;
         }
         #cookieBanner .cookie-btn {
-            padding: 7px 18px;
-            border-radius: 99px;
+            padding: 7px 20px;
+            border-radius: var(--radius-btn);
             border: none;
             font-weight: 600;
             font-size: 12px;
             cursor: pointer;
-            transition: all .25s ease;
-            font-family: 'DM Sans', sans-serif;
+            transition: all var(--transition);
+            font-family: 'Inter', 'DM Sans', sans-serif;
         }
         #cookieBanner .cookie-btn-accept {
             background: var(--blue);
             color: #fff;
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
         }
         #cookieBanner .cookie-btn-accept:hover {
             background: var(--blue-dark);
@@ -877,128 +1101,520 @@
         #cookieBanner .cookie-btn-deny {
             background: transparent;
             color: var(--slate);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid rgba(148, 163, 184, 0.12);
         }
         #cookieBanner .cookie-btn-deny:hover {
-            border-color: rgba(148, 163, 184, 0.4);
+            border-color: rgba(148, 163, 184, 0.3);
             color: var(--text);
-            background: rgba(148, 163, 184, 0.05);
+            background: rgba(148, 163, 184, 0.04);
         }
-        @media (max-width:500px) {
+
+        /* ============================================================
+               FOOTER
+               ============================================================ */
+        .site-footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.04);
+            margin-top: 60px;
+            color: var(--slate-dim);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        .footer-logo {
+            width: 56px;
+            height: auto;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.04));
+            transition: transform var(--transition);
+        }
+        .footer-logo:hover {
+            transform: scale(1.06) rotate(-1deg);
+        }
+        .footer-name {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .footer-tagline {
+            font-size: 13px;
+            color: var(--slate);
+            margin-top: 2px;
+        }
+        .privacy-note {
+            margin: 12px auto 0;
+            font-size: 13px;
+            color: var(--slate);
+            max-width: 520px;
+            padding: 0 12px;
+            line-height: 1.6;
+        }
+        .privacy-note i {
+            font-style: normal;
+        }
+        .ft-lnks {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+        .ft-lnks a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            transition: color var(--transition);
+        }
+        .ft-lnks a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+        .footer-divider {
+            width: 48px;
+            height: 2px;
+            background: rgba(148, 163, 184, 0.06);
+            margin: 18px auto;
+            border-radius: 99px;
+        }
+        .footer-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            font-size: 12px;
+            opacity: 0.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 12px;
+        }
+
+        /* ============================================================
+               RESPONSIVE
+               ============================================================ */
+        @media (max-width: 820px) {
+            .nav-desktop {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-mobile-overlay {
+                display: block;
+            }
+            .site-header {
+                padding: 12px 18px;
+            }
+            .brand-text {
+                font-size: 19px;
+            }
+            .brand-logo {
+                height: 38px;
+            }
+            .brand-badge {
+                font-size: 9px;
+                padding: 2px 10px;
+            }
+            .app-wrapper {
+                padding: 0 16px 40px;
+            }
+            .hero {
+                padding-top: 82px;
+            }
+            .drop-zone {
+                padding: 40px 20px;
+            }
+            .drop-title {
+                font-size: 19px;
+            }
+            .drop-icon {
+                width: 64px;
+                height: 64px;
+            }
+            .drop-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .action-bar .action-group {
+                flex: 1;
+            }
+            .btn {
+                justify-content: center;
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            .thumb-pair {
+                flex-direction: column;
+            }
+            .thumb-separator {
+                padding-top: 4px;
+                justify-content: center;
+            }
+            .header-inner {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-header {
+                padding: 10px 14px;
+            }
+            .brand-text {
+                font-size: 16px;
+            }
+            .brand-logo {
+                height: 32px;
+            }
+            .brand-badge {
+                display: none;
+            }
+            .app-wrapper {
+                padding: 0 12px 32px;
+            }
+            .hero {
+                padding-top: 74px;
+            }
+            .hero-title {
+                font-size: 26px;
+            }
+            .hero-sub {
+                font-size: 14px;
+            }
+            .drop-zone {
+                padding: 30px 16px;
+            }
+            .drop-title {
+                font-size: 17px;
+            }
+            .drop-subtitle {
+                font-size: 13px;
+            }
+            .drop-icon {
+                width: 56px;
+                height: 56px;
+                margin-bottom: 14px;
+            }
+            .drop-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            .format-tag {
+                font-size: 10px;
+                padding: 3px 10px;
+            }
+            .edu-box {
+                padding: 14px 16px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .edu-text {
+                font-size: 12.5px;
+            }
+            .card-header {
+                padding: 12px 14px;
+                flex-wrap: wrap;
+            }
+            .card-filename {
+                font-size: 13px;
+            }
+            .card-status-badge {
+                font-size: 10px;
+                padding: 3px 10px;
+            }
+            .privacy-report {
+                padding: 12px 14px;
+            }
+            .report-item {
+                font-size: 11.5px;
+                padding: 6px 10px;
+                flex-wrap: wrap;
+            }
+            .report-item-label {
+                white-space: normal;
+            }
+            .card-footer {
+                padding: 10px 14px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .card-footer .btn {
+                justify-content: center;
+            }
+            #toastContainer {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                align-items: stretch;
+            }
+            .toast {
+                max-width: 100%;
+                font-size: 12px;
+                padding: 12px 16px;
+            }
             #cookieBanner {
+                padding: 14px 16px;
                 flex-direction: column;
                 text-align: center;
-                padding: 16px 18px;
+                gap: 12px;
             }
             #cookieBanner .cookie-actions {
                 justify-content: center;
             }
+            .ft-lnks {
+                gap: 16px;
+            }
+            .ft-lnks a {
+                font-size: 12px;
+            }
+            .footer-meta {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 11px;
+            }
+            .nav-mobile {
+                width: 280px;
+                max-width: 80vw;
+                padding: 72px 24px 24px;
+            }
+            .nav-mobile a {
+                font-size: 16px;
+                padding: 8px 0;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .brand-text {
+                font-size: 14px;
+            }
+            .brand-logo {
+                height: 28px;
+            }
+            .hero-title {
+                font-size: 22px;
+            }
+            .drop-zone {
+                padding: 24px 12px;
+            }
+            .drop-title {
+                font-size: 15px;
+            }
+            .btn {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .btn-sm {
+                font-size: 11px;
+                padding: 6px 14px;
+            }
+        }
+
+        /* ============================================================
+               ACCESSIBILITY – prefers-reduced-motion
+               ============================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ============================================================
+               FOCUS VISIBLE
+               ============================================================ */
+        :focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        .btn:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+        a:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
     </style>
 </head>
+
 <body>
-    <div class="wrapper">
-        <header>
-            <div class="logo-container" style="display:flex;align-items:center;gap:10px;">
-                <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub Logo" class="header-logo" onerror="this.style.display='none'" />
-                <span class="logo-text" style="font-weight:700;font-size:1.2rem;">haiere</span>
-            </div>
-            <div class="header-text">
-                <div class="header-title">RAIA<span>Scrub</span></div>
-                <div class="header-tagline">Clean your digital trail – 100% local in browser, no server.</div>
-            </div>
-            <div class="header-badge">🔒 100% Local</div>
-        </header>
+    <!-- ============================================================
+    HEADER – Fixed Glass
+    ============================================================ -->
+    <header class="site-header" id="siteHeader" role="banner" aria-label="Main navigation">
+        <div class="header-inner">
+            <a href="#" class="brand" aria-label="Raia Scrub – Home">
+                <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub Logo" class="brand-logo" width="44" height="44" loading="eager" decoding="async" />
+                <span class="brand-text">RAIA<span>Scrub</span></span>
+                <span class="brand-badge">🔒 100% Local</span>
+            </a>
 
-        <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-            <div class="drop-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-            </div>
-            <div class="drop-title">Drag &amp; drop files here</div>
-            <div class="drop-subtitle">
-                or click to select files from your device<br />
-                <span style="font-size:12px;color:var(--slate-dim);">Max 8 files, 50 MB per file</span>
-            </div>
-            <div class="drop-formats">
-                <span class="format-tag active">JPG / JPEG</span>
-                <span class="format-tag active">PNG</span>
-                <span class="format-tag active">PDF</span>
-            </div>
-            <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf" />
-        </div>
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop" aria-label="Main navigation">
+                <a href="#hero">Home</a>
+                <a href="#features">Features</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#filesSection" class="nav-cta">Get Started</a>
+            </nav>
 
-        <div class="edu-box">
-            <span class="edu-icon">⚠️</span>
-            <div class="edu-text">
-                <strong>Why is this important?</strong> Hidden metadata in photos &amp; documents can reveal <strong>your home GPS location</strong>, phone model, precise timestamp, even your real name. Very dangerous if files are shared publicly.
-            </div>
-        </div>
-
-        <div class="action-bar" id="actionBar">
-            <div style="display:flex;gap:10px;flex-wrap:wrap;flex:1">
-                <button class="btn btn-primary" id="scrubAllBtn" onclick="scrubAll()">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
-                    Scrub All
-                </button>
-                <button class="btn btn-ghost" id="downloadZipBtn" onclick="downloadAll()" style="display:none">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download All ZIP
-                </button>
-            </div>
-            <button class="btn btn-ghost btn-sm" onclick="clearAll()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                Clear All
+            <!-- Hamburger Button -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
+    </header>
 
-        <div id="filesSection" style="display:none">
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-mobile-overlay" id="navOverlay" aria-hidden="true"></div>
+    <nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
+        <a href="#hero" class="nav-mobile-link">Home</a>
+        <a href="#features" class="nav-mobile-link">Features</a>
+        <a href="#privacy" class="nav-mobile-link">Privacy</a>
+        <a href="#filesSection" class="nav-mobile-cta">Get Started</a>
+    </nav>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main class="app-wrapper" id="mainContent" role="main">
+        <!-- Hero -->
+        <section class="hero" id="hero" aria-label="Upload your files">
+            <h1 class="hero-title">
+                Clean Your <span>Digital Trail</span>
+            </h1>
+            <p class="hero-sub">
+                Remove GPS, camera data, timestamps &amp; hidden metadata from images and PDFs — all in your browser, no uploads.
+            </p>
+
+            <!-- Drop Zone -->
+            <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Drag and drop files or click to select" onclick="document.getElementById('fileInput').click()" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); document.getElementById('fileInput').click(); }">
+                <div class="drop-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                </div>
+                <div class="drop-title">Drop files here</div>
+                <div class="drop-subtitle">
+                    or click to browse<br />
+                    <small>Max 8 files · 50 MB each</small>
+                </div>
+                <div class="drop-formats">
+                    <span class="format-tag active">JPG / JPEG</span>
+                    <span class="format-tag active">PNG</span>
+                    <span class="format-tag active">PDF</span>
+                </div>
+                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf" aria-label="Choose files to scrub" />
+            </div>
+
+            <!-- Education Box -->
+            <div class="edu-box" id="privacy" role="note" aria-label="Privacy warning">
+                <span class="edu-icon" aria-hidden="true">⚠️</span>
+                <div class="edu-text">
+                    <strong>Why scrub metadata?</strong> Photos &amp; documents can reveal <strong>your home GPS location</strong>, phone model, timestamps, and even your name. Protect your privacy before sharing.
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar" id="actionBar" role="toolbar" aria-label="File actions">
+                <div class="action-group">
+                    <button class="btn btn-primary" id="scrubAllBtn" onclick="scrubAll()" aria-label="Scrub all files">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                        Scrub All
+                    </button>
+                    <button class="btn btn-ghost" id="downloadZipBtn" onclick="downloadAll()" style="display:none" aria-label="Download all cleaned files as ZIP">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download All ZIP
+                    </button>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="clearAll()" aria-label="Clear all files">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    Clear All
+                </button>
+            </div>
+        </section>
+
+        <!-- Files Section -->
+        <section id="filesSection" style="display:none" aria-label="Uploaded files and privacy reports">
             <div class="section-label" style="margin-top:32px">Privacy Report</div>
-        </div>
-        <div id="filesGrid"></div>
-    </div>
+            <div id="filesGrid" role="list"></div>
+        </section>
+    </main>
 
-    <footer>
-        <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub Logo" class="footer-logo" loading="lazy" decoding="async" />
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="site-footer" role="contentinfo">
+        <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub Logo" class="footer-logo" loading="lazy" decoding="async" width="56" height="56" />
         <div class="footer-name">Raia Scrub</div>
         <div class="footer-tagline">Clean your files, protect your privacy.</div>
         <div class="privacy-note">
-            <i>⚡</i> Raia Scrub · All processing happens in your browser, no data sent to any server.
-            <div style="margin-top:4px;font-size:0.8rem;opacity:0.8;">Built with privacy-first principles</div>
+            <i aria-hidden="true">⚡</i> All processing happens in your browser — no data sent to any server.
+            <div style="margin-top:4px;font-size:0.8rem;opacity:0.7;">Built with privacy-first principles</div>
         </div>
         <div class="ft-lnks">
-            <a href="https://raia-footer.netlify.app/#privacy">Privacy Policy</a>
-            <a href="https://raia-footer.netlify.app/#terms">Terms &amp; Conditions</a>
+            <a href="https://raia-footer.netlify.app/#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            <a href="https://raia-footer.netlify.app/#terms" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
         </div>
-        <div class="footer-divider"></div>
+        <div class="footer-divider" aria-hidden="true"></div>
         <div class="footer-meta">
-            <span class="copyright">© 2026 Haiere. All rights reserved.</span>
+            <span class="copyright">&copy; 2026 Haiere. All rights reserved.</span>
             <span class="app-version">V 2.0.1</span>
         </div>
     </footer>
 
-    <div id="toastContainer"></div>
+    <!-- ============================================================
+    TOAST CONTAINER
+    ============================================================ -->
+    <div id="toastContainer" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <div id="cookieBanner" style="display:none;">
+    <!-- ============================================================
+    COOKIE BANNER
+    ============================================================ -->
+    <div id="cookieBanner" role="dialog" aria-label="Cookie consent" style="display:none;">
         <span>
             🍪 We use minimal cookies to remember your preferences. No tracking, no sharing.
-            <a href="https://raia-footer.netlify.app/#cookie" target="_blank">Learn more</a>
+            <a href="https://raia-footer.netlify.app/#cookie" target="_blank" rel="noopener noreferrer">Learn more</a>
         </span>
         <div class="cookie-actions">
-            <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Accept</button>
-            <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()">Decline</button>
+            <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()" aria-label="Accept cookies">Accept</button>
+            <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()" aria-label="Decline cookies">Decline</button>
         </div>
     </div>
 
+    <!-- ============================================================
+    JAVASCRIPT – All functionality preserved
+    ============================================================ -->
     <script>
+        /* ============================================================
+               COOKIE CONSENT
+               ============================================================ */
         (function() {
             const banner = document.getElementById('cookieBanner');
             const hasConsent = localStorage.getItem('raia-cookie-consent');
             if (hasConsent === null) banner.style.display = 'flex';
             else banner.style.display = 'none';
+
             window.acceptCookies = function() {
                 localStorage.setItem('raia-cookie-consent', 'accepted');
                 banner.style.display = 'none';
@@ -1011,44 +1627,121 @@
             };
         })();
 
+        /* ============================================================
+               HEADER SCROLL EFFECT
+               ============================================================ */
+        (function() {
+            const header = document.getElementById('siteHeader');
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const scrolled = window.scrollY > 20;
+                        header.classList.toggle('scrolled', scrolled);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            // Initial check
+            if (window.scrollY > 20) header.classList.add('scrolled');
+        })();
+
+        /* ============================================================
+               MOBILE NAV TOGGLE
+               ============================================================ */
+        (function() {
+            const hamburger = document.getElementById('hamburgerBtn');
+            const overlay = document.getElementById('navOverlay');
+            const mobileNav = document.getElementById('navMobile');
+            const links = mobileNav.querySelectorAll('.nav-mobile-link');
+
+            function toggleMenu(open) {
+                const isOpen = typeof open === 'boolean' ? open : !hamburger.classList.contains('open');
+                hamburger.classList.toggle('open', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+                overlay.classList.toggle('open', isOpen);
+                mobileNav.classList.toggle('open', isOpen);
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+            }
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            overlay.addEventListener('click', function() {
+                toggleMenu(false);
+            });
+
+            // Close on link click
+            links.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    toggleMenu(false);
+                });
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+                    toggleMenu(false);
+                    hamburger.focus();
+                }
+            });
+        })();
+
+        /* ============================================================
+               CORE APP — preserves all existing functionality
+               ============================================================ */
         const files = [];
         const cleanedBlobs = [];
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
 
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt =>
-            document.addEventListener(evt, e => e.preventDefault())
-        );
+        // Drag & drop prevention
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(evt) {
+            document.addEventListener(evt, function(e) { e.preventDefault(); });
+        });
 
-        dropZone.addEventListener('dragenter', () => dropZone.classList.add('drag-over'));
-        dropZone.addEventListener('dragleave', e => {
+        dropZone.addEventListener('dragenter', function() { dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', function(e) {
             if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over');
         });
-        dropZone.addEventListener('dragover', e => {
+        dropZone.addEventListener('dragover', function(e) {
             e.preventDefault();
             dropZone.classList.add('drag-over');
         });
-        dropZone.addEventListener('drop', e => {
+        dropZone.addEventListener('drop', function(e) {
             e.preventDefault();
             dropZone.classList.remove('drag-over');
-            handleFiles([...e.dataTransfer.files]);
+            handleFiles([].slice.call(e.dataTransfer.files));
         });
 
-        fileInput.addEventListener('change', () => handleFiles([...fileInput.files]));
+        fileInput.addEventListener('change', function() {
+            handleFiles([].slice.call(fileInput.files));
+        });
 
         function handleFiles(incoming) {
-            const ALLOWED = ['image/jpeg', 'image/png', 'application/pdf'];
-            const MAX_FILES = 8,
+            var ALLOWED = ['image/jpeg', 'image/png', 'application/pdf'];
+            var MAX_FILES = 8,
                 MAX_SIZE = 50 * 1024 * 1024;
+
             if (files.length + incoming.length > MAX_FILES) {
-                toast(`Max ${MAX_FILES} files at once.`, 'warn');
+                toast('Max ' + MAX_FILES + ' files at once.', 'warn');
                 incoming = incoming.slice(0, MAX_FILES - files.length);
             }
-            incoming.forEach(file => {
-                if (!ALLOWED.includes(file.type)) { toast(`Unsupported format: ${file.name}`, 'error'); return; }
-                if (file.size > MAX_SIZE) { toast(`File too large (>50 MB): ${file.name}`, 'warn'); return; }
-                const idx = files.length;
-                files.push({ file, metadata: null, cleanedBlob: null, scrubbed: false });
+
+            incoming.forEach(function(file) {
+                if (!ALLOWED.includes(file.type)) {
+                    toast('Unsupported format: ' + file.name, 'error');
+                    return;
+                }
+                if (file.size > MAX_SIZE) {
+                    toast('File too large (>50 MB): ' + file.name, 'warn');
+                    return;
+                }
+                var idx = files.length;
+                files.push({ file: file, metadata: null, cleanedBlob: null, scrubbed: false, originalSrc: null });
                 cleanedBlobs[idx] = null;
                 renderCard(idx);
                 readAndAnalyze(idx);
@@ -1057,272 +1750,328 @@
             fileInput.value = '';
         }
 
-        async function readAndAnalyze(idx) {
-            const entry = files[idx];
-            const { file } = entry;
+        function readAndAnalyze(idx) {
+            var entry = files[idx];
+            var file = entry.file;
             setCardStatus(idx, 'processing', 'Reading…');
             showProgress(idx, true, 'Analyzing metadata…', 20);
-            const buffer = await file.arrayBuffer();
-            try {
-                if (file.type === 'application/pdf') await analyzePDF(idx, buffer);
-                else await analyzeImage(idx, buffer);
-            } catch (err) { console.warn('Metadata read error:', err);
-                entry.metadata = []; }
-            showProgress(idx, true, 'Analysis complete', 100);
-            setTimeout(() => showProgress(idx, false), 600);
-            renderReport(idx);
+            var bufferPromise = file.arrayBuffer();
+            bufferPromise.then(function(buffer) {
+                if (file.type === 'application/pdf') {
+                    return analyzePDF(idx, buffer);
+                } else {
+                    return analyzeImage(idx, buffer);
+                }
+            }).catch(function(err) {
+                console.warn('Metadata read error:', err);
+                files[idx].metadata = [];
+            }).then(function() {
+                showProgress(idx, true, 'Analysis complete', 100);
+                setTimeout(function() { showProgress(idx, false); }, 600);
+                renderReport(idx);
+            });
         }
 
-        async function analyzeImage(idx, buffer) {
-            const entry = files[idx];
-            const meta = [];
+        function analyzeImage(idx, buffer) {
+            var entry = files[idx];
+            var meta = [];
             try {
-                const tags = ExifReader.load(buffer, { expanded: true });
-                const get = (group, key) => {
-                    try { return tags[group]?.[key]?.description || tags[group]?.[key]?.value || null; } catch { return null; }
+                var tags = ExifReader.load(buffer, { expanded: true });
+                var get = function(group, key) {
+                    try {
+                        var val = tags[group] && tags[group][key];
+                        return val ? (val.description || val.value || null) : null;
+                    } catch (_) { return null; }
                 };
                 if (tags.gps) {
-                    const lat = tags.gps.Latitude,
+                    var lat = tags.gps.Latitude,
                         lon = tags.gps.Longitude;
                     if (lat !== undefined && lon !== undefined) {
-                        let area = '';
+                        var area = '';
                         if (lat > -8 && lat < -5 && lon > 106 && lon < 107.5) area = ' (Jakarta area)';
                         else if (lat > -7.5 && lat < -6.8 && lon > 110 && lon < 111) area = ' (Semarang area)';
                         else if (lat > -8 && lat < -7 && lon > 112 && lon < 113) area = ' (Surabaya area)';
-                        meta.push({ key: 'GPS Location', value: `${lat.toFixed(5)}, ${lon.toFixed(5)}${area}`,
+                        meta.push({ key: 'GPS Location', value: lat.toFixed(5) + ', ' + lon.toFixed(5) + area,
                             sensitive: true, icon: '📍' });
                     }
                 }
-                const make = get('exif', 'Make') || get('Exif', 'Make');
-                const model = get('exif', 'Model') || get('Exif', 'Model');
+                var make = get('exif', 'Make') || get('Exif', 'Make');
+                var model = get('exif', 'Model') || get('Exif', 'Model');
                 if (make || model) meta.push({ key: 'Device', value: [make, model].filter(Boolean).join(' '),
                     sensitive: true, icon: '📱' });
-                const dt = get('exif', 'DateTimeOriginal') || get('Exif', 'DateTimeOriginal') || get('exif',
+                var dt = get('exif', 'DateTimeOriginal') || get('Exif', 'DateTimeOriginal') || get('exif',
                     'DateTime') || get('Exif', 'DateTime');
                 if (dt) meta.push({ key: 'Capture Time', value: dt, sensitive: false, icon: '🕐' });
-                const sw = get('exif', 'Software') || get('Exif', 'Software');
+                var sw = get('exif', 'Software') || get('Exif', 'Software');
                 if (sw) meta.push({ key: 'Software', value: sw, sensitive: false, icon: '💻' });
-                const artist = get('exif', 'Artist') || get('Exif', 'Artist');
+                var artist = get('exif', 'Artist') || get('Exif', 'Artist');
                 if (artist) meta.push({ key: 'Photographer / Artist', value: artist, sensitive: true, icon: '👤' });
-                const copy = get('exif', 'Copyright') || get('Exif', 'Copyright');
+                var copy = get('exif', 'Copyright') || get('Exif', 'Copyright');
                 if (copy) meta.push({ key: 'Copyright', value: copy, sensitive: false, icon: '©️' });
-                const focal = get('exif', 'FocalLength') || get('Exif', 'FocalLength');
+                var focal = get('exif', 'FocalLength') || get('Exif', 'FocalLength');
                 if (focal) meta.push({ key: 'Focal Length', value: focal, sensitive: false, icon: '🔭' });
-                const serial = get('exif', 'BodySerialNumber') || get('Exif', 'BodySerialNumber') ||
+                var serial = get('exif', 'BodySerialNumber') || get('Exif', 'BodySerialNumber') ||
                     get('exif', 'CameraSerialNumber') || get('Exif', 'CameraSerialNumber');
                 if (serial) meta.push({ key: 'Camera Serial Number', value: serial, sensitive: true, icon: '🔢' });
                 if (tags.Thumbnail || tags.thumbnail) meta.push({ key: 'Hidden Thumbnail',
                     value: 'EXIF thumbnail inside file', sensitive: true, icon: '🖼️' });
             } catch (e) { console.info('No EXIF or parse error:', e.message); }
-            entry.metadata = meta;
+            files[idx].metadata = meta;
         }
 
-        async function analyzePDF(idx, buffer) {
-            const entry = files[idx];
-            const meta = [];
+        function analyzePDF(idx, buffer) {
+            var entry = files[idx];
+            var meta = [];
             try {
-                const pdfDoc = await PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true });
-                const fields = [
-                    { key: 'Title', fn: () => pdfDoc.getTitle(), icon: '📄', sensitive: false },
-                    { key: 'Author', fn: () => pdfDoc.getAuthor(), icon: '👤', sensitive: true },
-                    { key: 'Subject', fn: () => pdfDoc.getSubject(), icon: '📝', sensitive: false },
-                    { key: 'Keywords', fn: () => pdfDoc.getKeywords(), icon: '🔑', sensitive: false },
-                    { key: 'Creator', fn: () => pdfDoc.getCreator(), icon: '💻', sensitive: true },
-                    { key: 'Producer', fn: () => pdfDoc.getProducer(), icon: '🏭', sensitive: false },
-                    { key: 'Creation Date', fn: () => pdfDoc.getCreationDate()?.toISOString?.() || pdfDoc
-                            .getCreationDate(), icon: '🕐', sensitive: false },
-                    { key: 'Modification Date', fn: () => pdfDoc.getModificationDate()?.toISOString?.() || pdfDoc
-                            .getModificationDate(), icon: '✏️', sensitive: false },
+                var pdfDoc = PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true });
+                var fields = [
+                    { key: 'Title', fn: function() { return pdfDoc.getTitle(); }, icon: '📄', sensitive: false },
+                    { key: 'Author', fn: function() { return pdfDoc.getAuthor(); }, icon: '👤', sensitive: true },
+                    { key: 'Subject', fn: function() { return pdfDoc.getSubject(); }, icon: '📝', sensitive: false },
+                    { key: 'Keywords', fn: function() { return pdfDoc.getKeywords(); }, icon: '🔑',
+                    sensitive: false },
+                    { key: 'Creator', fn: function() { return pdfDoc.getCreator(); }, icon: '💻', sensitive: true },
+                    { key: 'Producer', fn: function() { return pdfDoc.getProducer(); }, icon: '🏭',
+                    sensitive: false },
+                    { key: 'Creation Date', fn: function() { var d = pdfDoc.getCreationDate(); return d ? (d
+                            .toISOString ? d.toISOString() : d) : null; }, icon: '🕐', sensitive: false },
+                    { key: 'Modification Date', fn: function() { var d = pdfDoc.getModificationDate(); return d ?
+                            (d.toISOString ? d.toISOString() : d) : null; }, icon: '✏️', sensitive: false },
                 ];
-                fields.forEach(({ key, fn, icon, sensitive }) => {
-                    try { const val = fn(); if (val) meta.push({ key, value: String(val), sensitive, icon }); } catch {}
+                fields.forEach(function(f) {
+                    try {
+                        var val = f.fn();
+                        if (val) meta.push({ key: f.key, value: String(val), sensitive: f.sensitive,
+                            icon: f.icon });
+                    } catch (_) {}
                 });
             } catch (e) { console.warn('PDF parse error:', e.message); }
-            entry.metadata = meta;
+            files[idx].metadata = meta;
         }
 
         function renderCard(idx) {
-            const entry = files[idx];
-            const { file } = entry;
-            const grid = document.getElementById('filesGrid');
-            const isImage = file.type.startsWith('image/');
-            const thumbIcon = file.type === 'application/pdf' ? '📄' : '🖼️';
-            const sizeStr = formatSize(file.size);
-            const card = document.createElement('div');
+            var entry = files[idx];
+            var file = entry.file;
+            var grid = document.getElementById('filesGrid');
+            var isImage = file.type.startsWith('image/');
+            var thumbIcon = file.type === 'application/pdf' ? '📄' : '🖼️';
+            var sizeStr = formatSize(file.size);
+            var card = document.createElement('div');
             card.className = 'file-card';
-            card.id = `card-${idx}`;
-            card.innerHTML = `
-            <div class="card-header">
-              <div class="card-thumb" id="thumb-${idx}">${isImage ? '' : thumbIcon}</div>
-              <div class="card-meta"><div class="card-filename" title="${file.name}">${file.name}</div><div class="card-filesize">${sizeStr} · ${file.type.split('/')[1].toUpperCase()}</div></div>
-              <span class="card-status-badge badge-processing" id="badge-${idx}">Reading…</span>
-            </div>
-            <div id="report-${idx}" class="privacy-report" style="display:none"></div>
-            <div class="progress-wrap" id="progress-wrap-${idx}"><div class="progress-label"><span id="progress-label-${idx}">Processing…</span><span id="progress-pct-${idx}">0%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-${idx}"></div></div></div>
-            <div id="thumbpair-${idx}"></div>
-            <div class="card-footer" id="footer-${idx}">
-              <button class="btn btn-primary btn-sm" id="scrub-btn-${idx}" onclick="scrubOne(${idx})" style="display:none"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Scrub Now</button>
-              <a id="dl-btn-${idx}" class="btn btn-success btn-sm" style="display:none" download><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Cleaned</a>
-              <span id="footer-msg-${idx}" style="font-size:12px;color:var(--slate-dim)"></span>
-            </div>
-          `;
+            card.id = 'card-' + idx;
+            card.setAttribute('role', 'listitem');
+            card.innerHTML =
+                '<div class="card-header">' +
+                '<div class="card-thumb" id="thumb-' + idx + '">' + (isImage ? '' : thumbIcon) + '</div>' +
+                '<div class="card-meta"><div class="card-filename" title="' + file.name + '">' + file.name +
+                '</div><div class="card-filesize">' + sizeStr + ' · ' + file.type.split('/')[1].toUpperCase() +
+                '</div></div>' +
+                '<span class="card-status-badge badge-processing" id="badge-' + idx + '">Reading…</span>' +
+                '</div>' +
+                '<div id="report-' + idx + '" class="privacy-report" style="display:none"></div>' +
+                '<div class="progress-wrap" id="progress-wrap-' + idx + '"><div class="progress-label"><span id="progress-label-' +
+                idx + '">Processing…</span><span id="progress-pct-' + idx + '">0%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-' +
+                idx + '"></div></div></div>' +
+                '<div id="thumbpair-' + idx + '"></div>' +
+                '<div class="card-footer" id="footer-' + idx + '">' +
+                '<button class="btn btn-primary btn-sm" id="scrub-btn-' + idx +
+                '" onclick="scrubOne(' + idx + ')" style="display:none" aria-label="Scrub this file">' +
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Scrub Now' +
+                '</button>' +
+                '<a id="dl-btn-' + idx +
+                '" class="btn btn-success btn-sm" style="display:none" download aria-label="Download cleaned file">' +
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Cleaned' +
+                '</a>' +
+                '<span id="footer-msg-' + idx + '" style="font-size:12px;color:var(--slate-dim)"></span>' +
+                '</div>';
             grid.appendChild(card);
+
             if (isImage) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const thumbEl = document.getElementById(`thumb-${idx}`);
-                    thumbEl.innerHTML = `<img src="${e.target.result}" alt="">`;
-                    entry.originalSrc = e.target.result;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var thumbEl = document.getElementById('thumb-' + idx);
+                    thumbEl.innerHTML = '<img src="' + e.target.result + '" alt="Thumbnail preview" loading="lazy" decoding="async" />';
+                    files[idx].originalSrc = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
         function renderReport(idx) {
-            const entry = files[idx];
-            const meta = entry.metadata || [];
-            const reportEl = document.getElementById(`report-${idx}`);
-            const scrubBtn = document.getElementById(`scrub-btn-${idx}`);
-            const hasSensitive = meta.some(m => m.sensitive);
+            var entry = files[idx];
+            var meta = entry.metadata || [];
+            var reportEl = document.getElementById('report-' + idx);
+            var scrubBtn = document.getElementById('scrub-btn-' + idx);
+            var hasSensitive = meta.some(function(m) { return m.sensitive; });
             if (meta.length === 0) {
                 setCardStatus(idx, 'safe', '✓ Safe');
                 reportEl.style.display = 'block';
                 reportEl.innerHTML =
-                    `<div class="report-title">Privacy Report</div><ul class="report-list"><li class="report-item safe-item"><span class="report-item-icon">✅</span><span class="report-item-value">This file is safe – no sensitive privacy data found.</span></li></ul>`;
+                    '<div class="report-title">Privacy Report</div><ul class="report-list"><li class="report-item safe-item"><span class="report-item-icon">✅</span><span class="report-item-value">This file is safe – no sensitive privacy data found.</span></li></ul>';
                 setFooterMsg(idx, 'No metadata to remove.');
                 return;
             }
-            setCardStatus(idx, hasSensitive ? 'warn' : 'info', hasSensitive ? `⚠ ${meta.filter(m=>m.sensitive).length} sensitive` :
-                'Info only');
+            setCardStatus(idx, hasSensitive ? 'warn' : 'info', hasSensitive ? '⚠ ' + meta.filter(function(m) { return m
+                    .sensitive; }).length + ' sensitive' : 'Info only');
             reportEl.style.display = 'block';
-            const listItems = meta.map(m =>
-                `<li class="report-item${m.sensitive ? '' : ' safe-item'}" title="${m.sensitive ? 'Sensitive data' : 'Info'}"><span class="report-item-icon">${m.icon}</span><span class="report-item-label">${m.key}:</span><span class="report-item-value">${escHtml(m.value)}</span></li>`
-            ).join('');
+            var listItems = meta.map(function(m) {
+                return '<li class="report-item' + (m.sensitive ? '' : ' safe-item') +
+                    '" title="' + (m.sensitive ? 'Sensitive data' : 'Info') +
+                    '"><span class="report-item-icon">' + m.icon + '</span><span class="report-item-label">' + m
+                    .key + ':</span><span class="report-item-value">' + escHtml(m.value) + '</span></li>';
+            }).join('');
             reportEl.innerHTML =
-                `<div class="report-title">Privacy Report · ${meta.length} items found</div><ul class="report-list">${listItems}</ul>`;
+                '<div class="report-title">Privacy Report · ' + meta.length + ' items found</div><ul class="report-list">' +
+                listItems + '</ul>';
             scrubBtn.style.display = 'inline-flex';
         }
 
-        async function scrubAll() {
-            const promises = files.map((_, idx) => { if (!files[idx].scrubbed) return scrubOne(idx); });
-            await Promise.all(promises);
-            document.getElementById('downloadZipBtn').style.display = 'inline-flex';
-            toast('All files scrubbed successfully! 🎉', 'success');
+        function scrubAll() {
+            var promises = files.map(function(_, idx) {
+                if (!files[idx].scrubbed) return scrubOne(idx);
+                return Promise.resolve();
+            });
+            Promise.all(promises).then(function() {
+                document.getElementById('downloadZipBtn').style.display = 'inline-flex';
+                toast('All files scrubbed successfully! 🎉', 'success');
+            });
         }
 
-        async function scrubOne(idx) {
-            const entry = files[idx];
-            if (entry.scrubbed) return;
-            const { file } = entry;
-            const scrubBtn = document.getElementById(`scrub-btn-${idx}`);
-            scrubBtn.disabled = true;
-            scrubBtn.innerHTML = `<div class="spinner"></div> Scrubbing…`;
-            showProgress(idx, true, 'Removing metadata…', 30);
-            try {
-                let cleanBlob;
-                if (file.type === 'application/pdf') cleanBlob = await scrubPDF(file);
-                else if (file.type === 'image/jpeg') cleanBlob = await scrubJPEG(file);
-                else if (file.type === 'image/png') cleanBlob = await scrubPNG(file);
-                showProgress(idx, true, 'Done!', 100);
-                await sleep(500);
-                showProgress(idx, false);
-                entry.cleanedBlob = cleanBlob;
-                entry.scrubbed = true;
-                cleanedBlobs[idx] = { blob: cleanBlob, filename: 'clean_' + file.name };
-                const dlBtn = document.getElementById(`dl-btn-${idx}`);
-                dlBtn.href = URL.createObjectURL(cleanBlob);
-                dlBtn.download = 'clean_' + file.name;
-                dlBtn.style.display = 'inline-flex';
-                scrubBtn.style.display = 'none';
-                setCardStatus(idx, 'clean', '✓ Clean');
-                document.getElementById(`card-${idx}`).classList.add('scrubbed');
-                if (file.type.startsWith('image/') && entry.originalSrc) renderBeforeAfter(idx, entry.originalSrc,
-                cleanBlob);
-                setFooterMsg(idx, `Metadata removed. Clean size: ${formatSize(cleanBlob.size)}`);
-                toast(`${file.name} scrubbed successfully!`, 'success');
-                if (files.length > 1) document.getElementById('downloadZipBtn').style.display = 'inline-flex';
-            } catch (err) {
-                console.error('Scrub error:', err);
-                showProgress(idx, false);
-                scrubBtn.disabled = false;
-                scrubBtn.innerHTML =
-                    `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Try Again`;
-                toast(`Failed to process ${file.name}: ${err.message}`, 'error');
-            }
+        function scrubOne(idx) {
+            return new Promise(function(resolve, reject) {
+                var entry = files[idx];
+                if (entry.scrubbed) { resolve(); return; }
+                var file = entry.file;
+                var scrubBtn = document.getElementById('scrub-btn-' + idx);
+                scrubBtn.disabled = true;
+                scrubBtn.innerHTML = '<div class="spinner"></div> Scrubbing…';
+                showProgress(idx, true, 'Removing metadata…', 30);
+
+                var scrubPromise;
+                if (file.type === 'application/pdf') scrubPromise = scrubPDF(file);
+                else if (file.type === 'image/jpeg') scrubPromise = scrubJPEG(file);
+                else if (file.type === 'image/png') scrubPromise = scrubPNG(file);
+
+                scrubPromise.then(function(cleanBlob) {
+                    showProgress(idx, true, 'Done!', 100);
+                    setTimeout(function() {
+                        showProgress(idx, false);
+                    }, 500);
+                    entry.cleanedBlob = cleanBlob;
+                    entry.scrubbed = true;
+                    cleanedBlobs[idx] = { blob: cleanBlob, filename: 'clean_' + file.name };
+                    var dlBtn = document.getElementById('dl-btn-' + idx);
+                    dlBtn.href = URL.createObjectURL(cleanBlob);
+                    dlBtn.download = 'clean_' + file.name;
+                    dlBtn.style.display = 'inline-flex';
+                    scrubBtn.style.display = 'none';
+                    setCardStatus(idx, 'clean', '✓ Clean');
+                    document.getElementById('card-' + idx).classList.add('scrubbed');
+                    if (file.type.startsWith('image/') && entry.originalSrc) renderBeforeAfter(idx, entry
+                        .originalSrc, cleanBlob);
+                    setFooterMsg(idx, 'Metadata removed. Clean size: ' + formatSize(cleanBlob.size));
+                    toast(file.name + ' scrubbed successfully!', 'success');
+                    if (files.length > 1) document.getElementById('downloadZipBtn').style.display =
+                    'inline-flex';
+                    resolve();
+                }).catch(function(err) {
+                    console.error('Scrub error:', err);
+                    showProgress(idx, false);
+                    scrubBtn.disabled = false;
+                    scrubBtn.innerHTML =
+                        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg> Try Again';
+                    toast('Failed to process ' + file.name + ': ' + err.message, 'error');
+                    reject(err);
+                });
+            });
         }
 
-        async function scrubJPEG(file) {
-            const buffer = await file.arrayBuffer();
-            const binary = arrayBufferToBinaryString(buffer);
-            try {
-                const cleaned = piexif.remove(binary);
-                return new Blob([binaryStringToUint8Array(cleaned)], { type: 'image/jpeg' });
-            } catch { return await canvasScrub(file); }
+        function scrubJPEG(file) {
+            return file.arrayBuffer().then(function(buffer) {
+                var binary = arrayBufferToBinaryString(buffer);
+                try {
+                    var cleaned = piexif.remove(binary);
+                    return new Blob([binaryStringToUint8Array(cleaned)], { type: 'image/jpeg' });
+                } catch (_) { return canvasScrub(file); }
+            });
         }
 
-        async function scrubPNG(file) { return await canvasScrub(file); }
+        function scrubPNG(file) { return canvasScrub(file); }
 
         function canvasScrub(file) {
-            return new Promise((resolve, reject) => {
-                const url = URL.createObjectURL(file);
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
+            return new Promise(function(resolve, reject) {
+                var url = URL.createObjectURL(file);
+                var img = new Image();
+                img.onload = function() {
+                    var canvas = document.createElement('canvas');
                     canvas.width = img.naturalWidth;
                     canvas.height = img.naturalHeight;
                     canvas.getContext('2d').drawImage(img, 0, 0);
                     URL.revokeObjectURL(url);
-                    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Canvas toBlob failed')), file.type,
-                        0.95);
+                    canvas.toBlob(function(blob) {
+                        blob ? resolve(blob) : reject(new Error('Canvas toBlob failed'));
+                    }, file.type, 0.95);
                 };
-                img.onerror = () => reject(new Error('Image load failed'));
+                img.onerror = function() { reject(new Error('Image load failed')); };
                 img.src = url;
             });
         }
 
-        async function scrubPDF(file) {
-            const buffer = await file.arrayBuffer();
-            const pdfDoc = await PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true });
-            pdfDoc.setTitle('');
-            pdfDoc.setAuthor('');
-            pdfDoc.setSubject('');
-            pdfDoc.setKeywords([]);
-            pdfDoc.setCreator('');
-            pdfDoc.setProducer('');
-            try { pdfDoc.catalog.delete(PDFLib.PDFName.of('Metadata')); } catch {}
-            return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+        function scrubPDF(file) {
+            return file.arrayBuffer().then(function(buffer) {
+                return PDFLib.PDFDocument.load(buffer, { ignoreEncryption: true }).then(function(pdfDoc) {
+                    pdfDoc.setTitle('');
+                    pdfDoc.setAuthor('');
+                    pdfDoc.setSubject('');
+                    pdfDoc.setKeywords([]);
+                    pdfDoc.setCreator('');
+                    pdfDoc.setProducer('');
+                    try { pdfDoc.catalog.delete(PDFLib.PDFName.of('Metadata')); } catch (_) {}
+                    return pdfDoc.save().then(function(bytes) {
+                        return new Blob([bytes], { type: 'application/pdf' });
+                    });
+                });
+            });
         }
 
         function renderBeforeAfter(idx, originalSrc, cleanBlob) {
-            const cleanUrl = URL.createObjectURL(cleanBlob);
-            document.getElementById(`thumbpair-${idx}`).innerHTML =
-                `<div class="thumb-pair"><div class="thumb-col"><div class="thumb-col-label">Before</div><img class="thumb-img" src="${originalSrc}" alt="Before"></div><div class="thumb-separator">→</div><div class="thumb-col"><div class="thumb-col-label">After (Clean)</div><img class="thumb-img" src="${cleanUrl}" alt="After"></div></div>`;
+            var cleanUrl = URL.createObjectURL(cleanBlob);
+            document.getElementById('thumbpair-' + idx).innerHTML =
+                '<div class="thumb-pair"><div class="thumb-col"><div class="thumb-col-label">Before</div><img class="thumb-img" src="' +
+                originalSrc + '" alt="Original file preview" loading="lazy" decoding="async"></div><div class="thumb-separator" aria-hidden="true">→</div><div class="thumb-col"><div class="thumb-col-label">After (Clean)</div><img class="thumb-img" src="' +
+                cleanUrl + '" alt="Cleaned file preview" loading="lazy" decoding="async"></div></div>';
         }
 
-        async function downloadAll() {
-            const zip = new JSZip();
-            let count = 0;
-            cleanedBlobs.forEach((item) => { if (item && item.blob) { zip.file(item.filename, item.blob);
-                    count++; } });
+        function downloadAll() {
+            var zip = new JSZip();
+            var count = 0;
+            cleanedBlobs.forEach(function(item) {
+                if (item && item.blob) { zip.file(item.filename, item.blob);
+                    count++; }
+            });
             if (count === 0) { toast('No scrubbed files yet.', 'warn'); return; }
             toast('Creating ZIP…', 'success');
-            const zipBtn = document.getElementById('downloadZipBtn');
+            var zipBtn = document.getElementById('downloadZipBtn');
             zipBtn.disabled = true;
             zipBtn.innerHTML =
-                `<div class="spinner" style="border-color:rgba(0,0,0,0.2);border-top-color:var(--navy)"></div> Generating…`;
-            try {
-                const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
+                '<div class="spinner" style="border-color:rgba(0,0,0,0.2);border-top-color:var(--navy)"></div> Generating…';
+            zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }).then(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
                 a.href = url;
-                a.download = `raia-scrub-${Date.now()}.zip`;
+                a.download = 'raia-scrub-' + Date.now() + '.zip';
                 a.click();
                 URL.revokeObjectURL(url);
-                toast(`ZIP created successfully (${count} files) 🎉`, 'success');
-            } catch (e) { toast('Failed to create ZIP: ' + e.message, 'error'); }
-            zipBtn.disabled = false;
-            zipBtn.innerHTML =
-                `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All ZIP`;
+                toast('ZIP created successfully (' + count + ' files) 🎉', 'success');
+                zipBtn.disabled = false;
+                zipBtn.innerHTML =
+                    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All ZIP';
+            }).catch(function(e) {
+                toast('Failed to create ZIP: ' + e.message, 'error');
+                zipBtn.disabled = false;
+                zipBtn.innerHTML =
+                    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All ZIP';
+            });
         }
 
         function clearAll() {
@@ -1336,13 +2085,13 @@
         }
 
         function updateUI() {
-            const hasFiles = files.length > 0;
+            var hasFiles = files.length > 0;
             document.getElementById('actionBar').classList.toggle('visible', hasFiles);
             document.getElementById('filesSection').style.display = hasFiles ? 'block' : 'none';
         }
 
         function setCardStatus(idx, type, label) {
-            const badge = document.getElementById(`badge-${idx}`);
+            var badge = document.getElementById('badge-' + idx);
             badge.className = 'card-status-badge';
             if (type === 'warn') badge.classList.add('badge-warn');
             else if (type === 'safe') badge.classList.add('badge-safe');
@@ -1351,34 +2100,35 @@
             badge.textContent = label;
         }
 
-        function showProgress(idx, show, label = '', pct = 0) {
-            const wrap = document.getElementById(`progress-wrap-${idx}`);
+        function showProgress(idx, show, label, pct) {
+            var wrap = document.getElementById('progress-wrap-' + idx);
             if (!wrap) return;
             wrap.style.display = show ? 'block' : 'none';
             if (show) {
-                document.getElementById(`progress-${idx}`).style.width = pct + '%';
-                document.getElementById(`progress-label-${idx}`).textContent = label;
-                document.getElementById(`progress-pct-${idx}`).textContent = pct + '%';
+                document.getElementById('progress-' + idx).style.width = pct + '%';
+                document.getElementById('progress-label-' + idx).textContent = label || 'Processing…';
+                document.getElementById('progress-pct-' + idx).textContent = pct + '%';
             }
         }
 
         function setFooterMsg(idx, msg) {
-            const el = document.getElementById(`footer-msg-${idx}`);
+            var el = document.getElementById('footer-msg-' + idx);
             if (el) el.textContent = msg;
         }
 
-        function toast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const el = document.createElement('div');
-            el.className = `toast ${type}`;
-            const icons = { success: '✅', error: '❌', warn: '⚠️' };
-            el.innerHTML = `<span>${icons[type] || '💬'}</span><span>${msg}</span>`;
+        function toast(msg, type) {
+            type = type || 'success';
+            var container = document.getElementById('toastContainer');
+            var el = document.createElement('div');
+            el.className = 'toast ' + type;
+            var icons = { success: '✅', error: '❌', warn: '⚠️' };
+            el.innerHTML = '<span>' + (icons[type] || '💬') + '</span><span>' + msg + '</span>';
             container.appendChild(el);
-            setTimeout(() => {
+            setTimeout(function() {
                 el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
                 el.style.opacity = '0';
                 el.style.transform = 'translateX(20px) scale(0.95)';
-                setTimeout(() => el.remove(), 450);
+                setTimeout(function() { if (el.parentNode) el.remove(); }, 450);
             }, 3600);
         }
 
@@ -1392,26 +2142,24 @@
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
-        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
         function arrayBufferToBinaryString(buffer) {
-            const bytes = new Uint8Array(buffer);
-            let bin = '';
-            for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+            var bytes = new Uint8Array(buffer);
+            var bin = '';
+            for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
             return bin;
         }
 
         function binaryStringToUint8Array(str) {
-            const arr = new Uint8Array(str.length);
-            for (let i = 0; i < str.length; i++) arr[i] = str.charCodeAt(i);
+            var arr = new Uint8Array(str.length);
+            for (var i = 0; i < str.length; i++) arr[i] = str.charCodeAt(i);
             return arr;
         }
 
         function waitForPDFLib() {
-            return new Promise(resolve => {
+            return new Promise(function(resolve) {
                 if (window.PDFLib) resolve();
                 else {
-                    const check = setInterval(() => {
+                    var check = setInterval(function() {
                         if (window.PDFLib) { clearInterval(check);
                             resolve(); }
                     }, 100);
@@ -1419,9 +2167,10 @@
             });
         }
 
-        window.addEventListener('load', async () => {
-            await waitForPDFLib();
-            console.log('Raia Scrub ready – all libs loaded.');
+        window.addEventListener('load', function() {
+            waitForPDFLib().then(function() {
+                console.log('Raia Scrub ready – all libs loaded.');
+            });
         });
     </script>
 </body>
