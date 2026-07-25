@@ -50,9 +50,7 @@
     </script>
 
     <style>
-        /* ============================================================
-               CSS CUSTOM PROPERTIES (保持不变的颜色)
-               ============================================================ */
+        /* --- CSS CUSTOM PROPERTIES --- */
         :root {
             --navy: #020617;
             --navy-mid: #0f172a;
@@ -68,8 +66,6 @@
             --red: #ef4444;
             --red-soft: rgba(239, 68, 68, 0.12);
             --emerald-soft: rgba(16, 185, 129, 0.12);
-
-            /* Glass tokens */
             --glass-bg: rgba(15, 23, 42, 0.55);
             --glass-border: rgba(148, 163, 184, 0.12);
             --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
@@ -80,9 +76,7 @@
             --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* ============================================================
-               RESET & BASE
-               ============================================================ */
+        /* --- RESET & BASE --- */
         *,
         *::before,
         *::after {
@@ -104,8 +98,6 @@
             position: relative;
             line-height: 1.6;
         }
-
-        /* Subtle grid background */
         body::before {
             content: '';
             position: fixed;
@@ -117,7 +109,6 @@
             pointer-events: none;
             z-index: 0;
         }
-        /* Soft radial glow */
         body::after {
             content: '';
             position: fixed;
@@ -130,9 +121,7 @@
             z-index: 0;
         }
 
-        /* ============================================================
-               LAYOUT
-               ============================================================ */
+        /* --- LAYOUT --- */
         .app-wrapper {
             position: relative;
             z-index: 1;
@@ -141,9 +130,7 @@
             padding: 0 24px 60px;
         }
 
-        /* ============================================================
-               HEADER – Fixed Glass
-               ============================================================ */
+        /* --- HEADER – Fixed Glass --- */
         .site-header {
             position: fixed;
             top: 0;
@@ -171,8 +158,6 @@
             justify-content: space-between;
             gap: 16px;
         }
-
-        /* Brand */
         .brand {
             display: flex;
             align-items: center;
@@ -232,8 +217,6 @@
             border-color: rgba(16, 185, 129, 0.45);
             transform: scale(1.04);
         }
-
-        /* Desktop nav */
         .nav-desktop {
             display: flex;
             align-items: center;
@@ -282,8 +265,6 @@
         .nav-desktop .nav-cta::after {
             display: none;
         }
-
-        /* Hamburger */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -317,8 +298,6 @@
         .hamburger.open span:nth-child(3) {
             transform: translateY(-7.5px) rotate(-45deg);
         }
-
-        /* Mobile nav overlay */
         .nav-mobile-overlay {
             display: none;
             position: fixed;
@@ -385,9 +364,7 @@
             background: var(--blue-dark);
         }
 
-        /* ============================================================
-               HERO / DROP ZONE
-               ============================================================ */
+        /* --- HERO / DROP ZONE --- */
         .hero {
             padding-top: 100px;
             margin-bottom: 28px;
@@ -424,8 +401,6 @@
             font-weight: 400;
             animation: fadeDown 0.7s var(--transition) 0.08s both;
         }
-
-        /* Glass drop zone */
         .drop-zone {
             border: 1.5px dashed rgba(148, 163, 184, 0.2);
             border-radius: var(--radius-card);
@@ -460,7 +435,6 @@
         .drop-zone.drag-over::before {
             opacity: 1;
         }
-
         .drop-icon {
             display: inline-flex;
             align-items: center;
@@ -487,7 +461,6 @@
         .drop-zone:hover .drop-icon svg {
             transform: translateY(-2px);
         }
-
         .drop-title {
             font-family: 'Syne', sans-serif;
             font-size: 22px;
@@ -534,9 +507,7 @@
             display: none;
         }
 
-        /* ============================================================
-               EDUCATION BOX
-               ============================================================ */
+        /* --- EDUCATION BOX --- */
         .edu-box {
             margin-top: 22px;
             background: rgba(239, 68, 68, 0.05);
@@ -563,9 +534,7 @@
             color: var(--red);
         }
 
-        /* ============================================================
-               ACTION BAR
-               ============================================================ */
+        /* --- ACTION BAR --- */
         .action-bar {
             display: none;
             align-items: center;
@@ -585,9 +554,7 @@
             flex: 1;
         }
 
-        /* ============================================================
-               BUTTONS
-               ============================================================ */
+        /* --- BUTTONS --- */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -616,7 +583,6 @@
             cursor: not-allowed;
             transform: none !important;
         }
-
         .btn-primary {
             background: var(--blue);
             color: #fff;
@@ -627,7 +593,6 @@
             box-shadow: 0 8px 40px rgba(59, 130, 246, 0.5);
             transform: translateY(-2px);
         }
-
         .btn-ghost {
             background: rgba(148, 163, 184, 0.05);
             color: var(--slate);
@@ -639,7 +604,6 @@
             background: rgba(148, 163, 184, 0.08);
             transform: translateY(-2px);
         }
-
         .btn-success {
             background: var(--emerald);
             color: #fff;
@@ -650,12 +614,10 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 36px rgba(16, 185, 129, 0.4);
         }
-
         .btn-sm {
             padding: 7px 18px;
             font-size: 12.5px;
         }
-
         .btn .spinner {
             width: 16px;
             height: 16px;
@@ -675,16 +637,12 @@
             }
         }
 
-        /* ============================================================
-               FILES GRID
-               ============================================================ */
+        /* --- FILES GRID --- */
         #filesGrid {
             display: grid;
             gap: 24px;
             margin-top: 24px;
         }
-
-        /* Glass file card */
         .file-card {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur));
@@ -704,7 +662,6 @@
         .file-card.scrubbed {
             border-color: rgba(16, 185, 129, 0.2);
         }
-
         @keyframes slideIn {
             0% {
                 opacity: 0;
@@ -743,7 +700,6 @@
                 opacity: 1;
             }
         }
-
         .card-header {
             display: flex;
             align-items: center;
@@ -821,8 +777,6 @@
             color: var(--slate);
             border: 1px solid rgba(148, 163, 184, 0.1);
         }
-
-        /* Privacy report */
         .privacy-report {
             padding: 16px 20px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.04);
@@ -879,8 +833,6 @@
             color: var(--text-soft);
             word-break: break-word;
         }
-
-        /* Progress */
         .progress-wrap {
             padding: 12px 20px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.04);
@@ -907,8 +859,6 @@
             transition: width 0.5s var(--transition);
             box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
         }
-
-        /* Before / after */
         .thumb-pair {
             display: flex;
             gap: 16px;
@@ -948,7 +898,6 @@
             font-size: 20px;
             padding-top: 24px;
         }
-
         .card-footer {
             display: flex;
             align-items: center;
@@ -956,8 +905,6 @@
             padding: 14px 20px;
             flex-wrap: wrap;
         }
-
-        /* Section label */
         .section-label {
             font-size: 11px;
             font-weight: 600;
@@ -977,9 +924,7 @@
             background: rgba(148, 163, 184, 0.06);
         }
 
-        /* ============================================================
-               TOAST
-               ============================================================ */
+        /* --- TOAST --- */
         #toastContainer {
             position: fixed;
             bottom: 28px;
@@ -1030,9 +975,7 @@
             }
         }
 
-        /* ============================================================
-               COOKIE BANNER
-               ============================================================ */
+        /* --- COOKIE BANNER --- */
         #cookieBanner {
             position: fixed;
             bottom: 0;
@@ -1109,9 +1052,7 @@
             background: rgba(148, 163, 184, 0.04);
         }
 
-        /* ============================================================
-               FOOTER
-               ============================================================ */
+        /* --- FOOTER --- */
         .site-footer {
             text-align: center;
             padding: 40px 0 20px;
@@ -1195,9 +1136,7 @@
             padding: 0 12px;
         }
 
-        /* ============================================================
-               RESPONSIVE
-               ============================================================ */
+        /* --- RESPONSIVE --- */
         @media (max-width: 820px) {
             .nav-desktop {
                 display: none;
@@ -1264,7 +1203,6 @@
                 gap: 10px;
             }
         }
-
         @media (max-width: 480px) {
             .site-header {
                 padding: 10px 14px;
@@ -1391,7 +1329,6 @@
                 padding: 8px 0;
             }
         }
-
         @media (max-width: 360px) {
             .brand-text {
                 font-size: 14px;
@@ -1418,9 +1355,7 @@
             }
         }
 
-        /* ============================================================
-               ACCESSIBILITY – prefers-reduced-motion
-               ============================================================ */
+        /* --- ACCESSIBILITY – prefers-reduced-motion --- */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -1433,10 +1368,6 @@
                 scroll-behavior: auto;
             }
         }
-
-        /* ============================================================
-               FOCUS VISIBLE
-               ============================================================ */
         :focus-visible {
             outline: 2px solid var(--blue);
             outline-offset: 2px;
@@ -1455,9 +1386,7 @@
 </head>
 
 <body>
-    <!-- ============================================================
-    HEADER – Fixed Glass
-    ============================================================ -->
+    <!-- HEADER – Fixed Glass -->
     <header class="site-header" id="siteHeader" role="banner" aria-label="Main navigation">
         <div class="header-inner">
             <a href="#" class="brand" aria-label="Raia Scrub – Home">
@@ -1465,16 +1394,12 @@
                 <span class="brand-text">RAIA<span>Scrub</span></span>
                 <span class="brand-badge">🔒 100% Local</span>
             </a>
-
-            <!-- Desktop Navigation -->
             <nav class="nav-desktop" aria-label="Main navigation">
                 <a href="#hero">Home</a>
                 <a href="#features">Features</a>
                 <a href="#privacy">Privacy</a>
                 <a href="#filesSection" class="nav-cta">Get Started</a>
             </nav>
-
-            <!-- Hamburger Button -->
             <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -1483,7 +1408,7 @@
         </div>
     </header>
 
-    <!-- Mobile Navigation Overlay -->
+    <!-- Mobile Navigation -->
     <div class="nav-mobile-overlay" id="navOverlay" aria-hidden="true"></div>
     <nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
         <a href="#hero" class="nav-mobile-link">Home</a>
@@ -1492,9 +1417,7 @@
         <a href="#filesSection" class="nav-mobile-cta">Get Started</a>
     </nav>
 
-    <!-- ============================================================
-    MAIN CONTENT
-    ============================================================ -->
+    <!-- MAIN CONTENT -->
     <main class="app-wrapper" id="mainContent" role="main">
         <!-- Hero -->
         <section class="hero" id="hero" aria-label="Upload your files">
@@ -1561,9 +1484,7 @@
         </section>
     </main>
 
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
+    <!-- FOOTER -->
     <footer class="site-footer" role="contentinfo">
         <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub Logo" class="footer-logo" loading="lazy" decoding="async" width="56" height="56" />
         <div class="footer-name">Raia Scrub</div>
@@ -1579,18 +1500,14 @@
         <div class="footer-divider" aria-hidden="true"></div>
         <div class="footer-meta">
             <span class="copyright">&copy; 2026 Haiere. All rights reserved.</span>
-            <span class="app-version">V 2.0.1</span>
+            <span class="app-version">V 2.0.2</span>
         </div>
     </footer>
 
-    <!-- ============================================================
-    TOAST CONTAINER
-    ============================================================ -->
+    <!-- TOAST CONTAINER -->
     <div id="toastContainer" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- ============================================================
-    COOKIE BANNER
-    ============================================================ -->
+    <!-- COOKIE BANNER -->
     <div id="cookieBanner" role="dialog" aria-label="Cookie consent" style="display:none;">
         <span>
             🍪 We use minimal cookies to remember your preferences. No tracking, no sharing.
@@ -1602,13 +1519,9 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    JAVASCRIPT – All functionality preserved
-    ============================================================ -->
+    <!-- JAVASCRIPT -->
     <script>
-        /* ============================================================
-               COOKIE CONSENT
-               ============================================================ */
+        /* --- COOKIE CONSENT --- */
         (function() {
             const banner = document.getElementById('cookieBanner');
             const hasConsent = localStorage.getItem('raia-cookie-consent');
@@ -1627,9 +1540,7 @@
             };
         })();
 
-        /* ============================================================
-               HEADER SCROLL EFFECT
-               ============================================================ */
+        /* --- HEADER SCROLL EFFECT --- */
         (function() {
             const header = document.getElementById('siteHeader');
             let ticking = false;
@@ -1643,13 +1554,10 @@
                     ticking = true;
                 }
             });
-            // Initial check
             if (window.scrollY > 20) header.classList.add('scrolled');
         })();
 
-        /* ============================================================
-               MOBILE NAV TOGGLE
-               ============================================================ */
+        /* --- MOBILE NAV TOGGLE --- */
         (function() {
             const hamburger = document.getElementById('hamburgerBtn');
             const overlay = document.getElementById('navOverlay');
@@ -1674,14 +1582,12 @@
                 toggleMenu(false);
             });
 
-            // Close on link click
             links.forEach(function(link) {
                 link.addEventListener('click', function() {
                     toggleMenu(false);
                 });
             });
 
-            // Close on Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
                     toggleMenu(false);
@@ -1690,15 +1596,12 @@
             });
         })();
 
-        /* ============================================================
-               CORE APP — preserves all existing functionality
-               ============================================================ */
+        /* --- CORE APP --- */
         const files = [];
         const cleanedBlobs = [];
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
 
-        // Drag & drop prevention
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(evt) {
             document.addEventListener(evt, function(e) { e.preventDefault(); });
         });
