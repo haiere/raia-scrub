@@ -134,7 +134,7 @@ This tool is provided as open source under the MIT license. See the `LICENSE` fi
 
 ## Author and Support
 
-Raia Scrub is developed and maintained by Haiere. For questions, feedback, or support, please use the issue tracker or contact via the project repository.
+Raia Scrub is developed and maintained by Haiere & Hajir Studio. For questions, feedback, or support, please use the issue tracker or contact via the project repository.
 
 ---
 
