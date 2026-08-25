@@ -2,49 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Raia Scrub | Clean Your Digital Trail</title>
-<meta name="description" content="Raia Scrub removes sensitive metadata from JPG, PNG, and PDF files, including GPS location, camera details, and timestamps. 100% local, no upload required." />
-<meta name="keywords" content="metadata remover, privacy tool, EXIF scrubber, remove GPS from photo, PDF metadata cleaner, Raia Scrub" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://raia-scrub.haiere.workers.dev/" />
+    <title>Raia Scrub | Clean Your Digital Trail</title>
+    <meta name="description" content="Raia Scrub removes sensitive metadata from JPG, PNG, and PDF files, including GPS location, camera details, and timestamps. 100% local, no upload required." />
+    <meta name="keywords" content="metadata remover, privacy tool, EXIF scrubber, remove GPS from photo, PDF metadata cleaner, Raia Scrub" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://raia-scrub.haiere.workers.dev/" />
 
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://raia-scrub.haiere.workers.dev/" />
-<meta property="og:title" content="Raia Scrub | Clean Your Digital Trail" />
-<meta property="og:description" content="Remove sensitive metadata from JPG, PNG, and PDF files in your browser. 100% local and private." />
-<meta property="og:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Raia Scrub privacy and metadata removal preview" />
-<meta property="og:site_name" content="Raia Scrub" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://raia-scrub.haiere.workers.dev/" />
+    <meta property="og:title" content="Raia Scrub | Clean Your Digital Trail" />
+    <meta property="og:description" content="Remove sensitive metadata from JPG, PNG, and PDF files in your browser. 100% local and private." />
+    <meta property="og:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Raia Scrub privacy and metadata removal preview" />
+    <meta property="og:site_name" content="Raia Scrub" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Raia Scrub | Clean Your Digital Trail" />
-<meta name="twitter:description" content="Remove sensitive metadata from JPG, PNG, and PDF files in your browser. 100% local and private." />
-<meta name="twitter:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
-<meta name="twitter:image:alt" content="Raia Scrub privacy and metadata removal preview" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Raia Scrub | Clean Your Digital Trail" />
+    <meta name="twitter:description" content="Remove sensitive metadata from JPG, PNG, and PDF files in your browser. 100% local and private." />
+    <meta name="twitter:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <meta name="twitter:image:alt" content="Raia Scrub privacy and metadata removal preview" />
 
-<link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
+    <link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Raia Scrub",
-  "description": "Remove sensitive metadata from JPG, PNG, and PDF files 100% in your browser.",
-  "url": "https://raia-scrub.haiere.workers.dev/",
-  "applicationCategory": "PrivacyApplication",
-  "browserRequirements": "Requires JavaScript",
-  "operatingSystem": "All",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
-}
-</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Raia Scrub",
+      "description": "Remove sensitive metadata from JPG, PNG, and PDF files 100% in your browser.",
+      "url": "https://raia-scrub.haiere.workers.dev/",
+      "applicationCategory": "PrivacyApplication",
+      "browserRequirements": "Requires JavaScript",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 
     <!-- Fonts: Inter + Outfit + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,17 +54,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/ExifReader.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/piexifjs@latest">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@latest/dist/pdf-lib.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/jszip@latest/dist/jszip.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/ExifReader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/piexifjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@latest/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@latest/dist/jszip.min.js"></script>
     
-    <link rel="stylesheet" href="style.css">
-
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -208,7 +206,7 @@
         </div>
     </div>
     
+    <!-- Custom JavaScript -->
     <script src="script.js"></script>
-
 </body>
 </html>
