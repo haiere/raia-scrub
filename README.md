@@ -1,154 +1,516 @@
 # Raia Scrub
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
-[![Version](https://img.shields.io/badge/version-2.0.2-brightgreen.svg)](#)
+[![Version](https://img.shields.io/badge/version-2.0.3-brightgreen.svg)](#version-history)
 [![Status](https://img.shields.io/badge/status-active-success.svg)](#)
 [![Website](https://img.shields.io/badge/website-raia--scrub.haiere.workers.dev-3B82F6.svg)](https://raia-scrub.haiere.workers.dev/)
+[![Donate](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/hajirstudio)
 
-A browser-based metadata scrubber that removes sensitive EXIF, GPS, camera details, and document metadata from JPG, PNG, and PDF files.
+> A privacy-first browser tool for inspecting and removing metadata from images and PDF files.
 
-Raia Scrub is a privacy-first tool that runs entirely in your web browser. It reads file metadata, displays a privacy report, and strips out sensitive information such as GPS coordinates, device model, timestamps, author names, and software details. No file is ever uploaded to a server — everything stays on your machine.
+Raia Scrub helps you remove potentially sensitive information from files before sharing them online.
 
-The application is built for anyone who wants to share photos or PDFs without exposing personal or location data. It is especially useful for journalists, photographers, researchers, and privacy-conscious individuals.
+It can inspect and clean common metadata such as:
+
+- GPS coordinates.
+- Camera make and model.
+- Capture dates and timestamps.
+- Author and creator names.
+- Software and application information.
+- Common document properties.
+
+All core file processing is designed to happen locally in your browser. Files are not intentionally uploaded to a Raia Scrub backend.
+
+<p align="center">
+  <a href="https://raia-scrub.haiere.workers.dev/">
+    <img src="https://img.shields.io/badge/Open%20Raia%20Scrub-Live%20App-3B82F6?style=for-the-badge" alt="Open Raia Scrub" />
+  </a>
+  <a href="https://buymeacoffee.com/hajirstudio">
+    <img src="https://img.shields.io/badge/Support%20Development-Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Support Raia Scrub on Buy Me a Coffee" />
+  </a>
+</p>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [What's New in v2.0.3](#whats-new-in-v203)
+- [Features](#features)
+- [Supported Formats](#supported-formats)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Privacy Model](#privacy-model)
+- [Security Considerations](#security-considerations)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Development Setup](#development-setup)
+- [License](#license)
+- [Author and Support](#author-and-support)
+
+---
+
+## Overview
+
+Raia Scrub is a client-side metadata inspection and removal tool for images and PDF files.
+
+The application provides a privacy report before processing, allowing you to review detected metadata and identify potentially sensitive fields.
+
+The main workflow is:
+
+1. Select or drop files into the application.
+2. Review detected metadata.
+3. Scrub metadata from selected files.
+4. Download cleaned files individually or as a ZIP archive.
+
+Raia Scrub is useful for:
+
+- Journalists.
+- Photographers.
+- Researchers.
+- Designers.
+- Developers.
+- Privacy-conscious users.
+- Anyone sharing images or documents online.
+
+---
+
+## What's New in v2.0.3
+
+- Improved SEO metadata and structured data.
+- Added Open Graph and Twitter Card metadata.
+- Added canonical URL configuration.
+- Added `WebApplication`, `Organization`, `FAQPage`, and `HowTo` structured data.
+- Refreshed the dark glass-style interface.
+- Improved typography, spacing, responsiveness, and animations.
+- Added responsive support for mobile, tablet, and desktop screens.
+- Added safe-area support for devices with display notches.
+- Added skip-link navigation and improved ARIA labels.
+- Added visible focus styles for keyboard users.
+- Added `prefers-reduced-motion` support.
+- Added a non-intrusive donation button.
+- Added a matching Buy Me a Coffee button in the footer.
+- Added content sections for Features, Privacy, How It Works, and FAQ.
+- Kept the application as a single HTML file with inline CSS and JavaScript.
+- Updated the project version to `2.0.3`.
 
 ---
 
 ## Features
 
-- Local processing — all operations are performed in the browser; no external servers are involved.
-- Support for multiple formats — JPG, JPEG, PNG, and PDF are supported.
-- Privacy report — each file is scanned and a list of detected metadata items is displayed, with clear indication of sensitive versus non-sensitive entries.
-- One-click scrubbing — remove metadata from individual files or from all files in the queue.
-- Before/after preview — for image files, a side-by-side preview shows the original and the cleaned version.
-- Bulk download — scrubbed files can be downloaded individually or as a ZIP archive.
-- No installation required — runs in any modern browser, with no dependencies to install.
+- **Local processing** — File processing is performed in the browser.
+- **Privacy report** — Detected metadata is displayed before scrubbing.
+- **Sensitive-field highlighting** — Potentially sensitive entries are clearly identified.
+- **Image support** — Supports JPG, JPEG, and PNG files.
+- **PDF support** — Removes common PDF document properties.
+- **One-click scrubbing** — Clean individual files or the entire queue.
+- **Before-and-after preview** — Compare original and cleaned image files.
+- **Bulk processing** — Process multiple files in one session.
+- **ZIP download** — Download multiple cleaned files as one archive.
+- **Drag and drop** — Add files through the drop zone.
+- **No account required** — The core application does not require registration.
+- **Responsive interface** — Works across desktop and mobile layouts.
+- **Offline-friendly workflow** — Processing can continue after required resources have been cached.
+- **Donation support** — Optional Buy Me a Coffee support link for users who want to help maintain the project.
+
+---
+
+## Supported Formats
+
+### Image Formats
+
+- `.jpg`
+- `.jpeg`
+- `.png`
+
+### Document Formats
+
+- `.pdf`
+
+### Processing Limits
+
+The current interface supports:
+
+- Up to 8 files in one queue.
+- Files up to 50 MB each.
+
+These limits may be changed in future versions.
 
 ---
 
 ## Requirements
 
-- A modern web browser with JavaScript enabled, such as Chrome, Firefox, Edge, Safari, or similar.
-- Internet connection is required only to load the page and its dependencies from CDN, including ExifReader, piexifjs, pdf-lib, and JSZip. After the first load, the application can be cached for offline use.
-- The application is a single HTML file; no additional runtime or server is needed.
+Raia Scrub requires:
+
+- A modern web browser.
+- JavaScript enabled.
+- Permission to read files selected by the user.
+- Sufficient memory for the size and number of files being processed.
+
+Recommended browsers include:
+
+- Google Chrome.
+- Mozilla Firefox.
+- Microsoft Edge.
+- Apple Safari.
+- Other modern Chromium- or WebKit-based browsers.
+
+An internet connection may be required during the first page load when JavaScript libraries are loaded from a CDN.
 
 ---
 
 ## Installation
 
-Raia Scrub is a client-side application and does not require traditional installation. To use it:
+Raia Scrub does not require a traditional installation.
 
-1. Open the hosted URL in your browser.
-2. Alternatively, download the `index.html` file and open it locally.
+### Use the Hosted Version
 
-If you wish to serve it from your own web server, place the HTML file on your server and ensure the CDN resources are accessible, or download them and adjust the script tags accordingly.
+Open the application:
+
+```text
+[https://raia-scrub.haiere.workers.dev/](https://raia-scrub.haiere.workers.dev/)
+```
+
+### Run the HTML File Locally
+
+Download or clone the project, then open the HTML file in a modern browser.
+
+```bash
+git clone [https://github.com/haiere/raia-scrub.git](https://github.com/haiere/raia-scrub.git)
+cd raia-scrub
+```
+
+Open the main HTML file directly, or use a local development server.
+
+### Python
+
+```bash
+python -m http.server 8000
+```
+
+### Node.js
+
+```bash
+npx serve .
+```
+
+### PHP
+
+```bash
+php -S localhost:8000
+```
+
+Then open:
+
+```text
+http://localhost:8000
+```
+
+If the application uses CDN-hosted libraries, the browser must be able to access those CDN resources during the initial load.
 
 ---
 
 ## Usage
 
-1. Load the page — the interface displays a drop zone.
-2. Add files — drag and drop files onto the drop zone, or click it to open a file browser. You can select up to 8 files, each up to 50 MB.
-3. Review metadata — after upload, each file shows a privacy report with detected metadata fields. Sensitive entries are highlighted.
-4. Scrub — click “Scrub Now” on an individual file, or use the “Scrub All” button to process all files. During scrubbing, a progress bar is shown.
-5. Download — once scrubbing is complete, a “Download Cleaned” button appears for each file. You can also use the “Download All ZIP” button to download all cleaned files in a single archive.
-6. Clear — use the “Clear All” button to remove all files and start over.
+1. Open Raia Scrub.
+2. Drag files into the drop zone, or click the drop zone to browse for files.
+3. Select one or more supported files.
+4. Review the metadata report for each file.
+5. Identify sensitive metadata fields.
+6. Click `Scrub Now` to clean an individual file.
+7. Click `Scrub All` to process all files in the queue.
+8. Review the cleaned file preview when available.
+9. Click `Download Cleaned` to save an individual result.
+10. Use `Download All ZIP` to download all cleaned files together.
+11. Click `Clear All` to remove the current queue.
+
+The original files are not overwritten by the application. Cleaned results are generated in memory and downloaded separately.
 
 ---
 
-## Privacy Considerations
+## Privacy Model
 
-Raia Scrub processes all files locally. No data is transmitted over the network. The only external resources loaded are JavaScript libraries from CDN; these are fetched once and cached. The application does not set tracking cookies, nor does it collect or store any user information.
+Raia Scrub is designed around client-side processing.
 
-The tool respects your privacy by design: you can disconnect from the internet after the page loads and all functionality remains available.
+During normal use:
+
+- Files are selected by the user.
+- Files are read by browser APIs.
+- Metadata is inspected in the browser.
+- Cleaning is performed in the browser.
+- Cleaned files are generated in memory.
+- Files are not intentionally uploaded to a Raia Scrub backend.
+- No account is required.
+- No analytics or advertising system is required for the core workflow.
+
+### External Resources
+
+The hosted application may load JavaScript libraries from a CDN during the initial page load.
+
+Depending on the deployment configuration, these libraries may include:
+
+- ExifReader.
+- piexifjs.
+- pdf-lib.
+- JSZip.
+
+If you require a fully offline deployment, download and self-host the required dependencies, then update the corresponding script references.
+
+### Cookie Preference
+
+The application may store a local preference flag for the cookie notice.
+
+This preference is stored by the browser and is not intended to contain file contents or metadata.
 
 ---
 
 ## Security Considerations
 
-The application runs entirely in the browser sandbox. It does not access the file system beyond reading files that you explicitly select. There is no code execution on the server, and no persistent storage of your files.
+Raia Scrub runs inside the browser security sandbox and only accesses files explicitly selected by the user.
 
-When downloading scrubbed files, they are generated and served directly from memory. The original files are never saved to disk by the application.
+The application:
+
+- Does not scan unrelated files on your device.
+- Does not require direct file-system access.
+- Does not overwrite the original file.
+- Does not execute uploaded file content as application code.
+- Generates cleaned files from browser memory.
+- Does not require server-side file storage for the core workflow.
+
+For highly sensitive files, verify the output independently with a trusted metadata inspection tool before publishing.
+
+---
+
+## Limitations
+
+Metadata removal is not an absolute guarantee that every hidden data structure has been removed.
+
+Possible limitations include:
+
+- Proprietary metadata fields may not be recognized.
+- Some XMP or embedded metadata structures may remain.
+- PDF files may contain metadata beyond standard document properties.
+- Embedded attachments, scripts, annotations, thumbnails, or unusual PDF objects may require specialized tools.
+- Re-encoding an image may affect quality or color profiles.
+- Browser support for some image and PDF structures may vary.
+- Metadata contained in visible text or image pixels cannot be removed by a metadata scrubber.
+- File names and folder names may still reveal information.
+- Metadata added after downloading the cleaned file may not be covered by the original cleaning process.
+
+For maximum assurance, inspect the downloaded output independently before sharing it.
 
 ---
 
 ## Troubleshooting
 
-### File not processed
+### A file is not processed
 
-Ensure the file format is supported and does not exceed 50 MB. If the file is corrupted or encrypted, it may fail to parse.
+Check that:
 
-### Metadata not removed
+- The file uses a supported format.
+- The file is smaller than the configured size limit.
+- The file is not corrupted.
+- The file is not encrypted or password-protected.
+- Your browser has sufficient available memory.
 
-For some edge cases, such as deeply embedded EXIF or XMP data, scrubbing may not be perfect. The tool uses standard libraries to remove common metadata, but some proprietary fields might remain.
+### Metadata still appears
 
-### PDF scrubbing
+Some proprietary, embedded, or nested metadata may not be supported by the current cleaning implementation.
 
-The tool uses `pdf-lib` to clear standard document properties. It does not remove all embedded metadata, such as XMP streams, in every case, but it covers the most common fields.
+Try opening the cleaned file in an independent metadata inspection tool. If sensitive information remains, do not publish the file and report the issue to the project repository.
 
-### Performance
+### PDF cleaning is incomplete
 
-Scrubbing large images may take a few seconds. The interface remains responsive during processing.
+PDF metadata can exist in multiple structures. The application handles common document properties, but unusual XMP streams, embedded files, annotations, JavaScript actions, or custom objects may require a dedicated PDF sanitization workflow.
 
-### Console errors
+### The application does not work offline
 
-If scrubbing fails, check the browser console for error messages. Common issues include unsupported file structures or missing libraries.
+The first load may require access to CDN-hosted dependencies.
+
+To support fully offline use:
+
+1. Download the required library files.
+2. Store them locally with the application.
+3. Replace CDN URLs with local paths.
+4. Serve the project through a local web server.
+5. Test the application without an internet connection.
+
+### The page appears slow
+
+Large images and multiple PDF files can require significant browser memory.
+
+Try:
+
+- Processing fewer files at once.
+- Closing unused browser tabs.
+- Using smaller source files.
+- Running the application in a modern desktop browser.
+- Clearing the queue before starting another batch.
+
+### Console errors appear
+
+Open the browser developer console and check for:
+
+- Failed CDN requests.
+- Unsupported file structures.
+- Memory-related errors.
+- Blocked local-file permissions.
+- Missing or outdated library references.
 
 ---
 
 ## Roadmap
 
-Future improvements may include:
+Potential future improvements include:
 
-- Support for additional file formats, such as TIFF and HEIC.
-- More thorough removal of embedded thumbnails and XMP data.
-- Option to manually select which metadata fields to remove.
-- Enhanced reporting with detailed field descriptions.
+- Support for TIFF files.
+- Support for HEIC and HEIF files.
+- Additional image formats.
+- More complete XMP and embedded-thumbnail removal.
+- Improved PDF sanitization.
+- Selective metadata-field removal.
+- Detailed field explanations.
+- Metadata comparison before and after cleaning.
+- Improved batch-processing performance.
+- Internationalization support.
+- Optional local installation package.
+- Automated browser and privacy regression tests.
 
 ---
 
 ## Contributing
 
-Contributions are welcome. If you would like to improve the tool, please fork the repository and submit a pull request. Areas of interest include:
+Contributions are welcome.
 
-- Improving metadata extraction and removal for edge cases.
-- Adding support for new file formats.
-- Enhancing the user interface and accessibility.
-- Fixing bugs and performance issues.
+You can contribute by:
 
-Before contributing, please ensure that your changes maintain the privacy-first, client-side nature of the application.
+- Reporting bugs.
+- Improving metadata extraction.
+- Improving metadata removal.
+- Adding support for new formats.
+- Improving accessibility.
+- Improving browser compatibility.
+- Improving documentation.
+- Adding tests.
+- Reviewing pull requests.
+
+### Contribution Workflow
+
+1. Fork the repository.
+2. Create a feature branch:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. Make your changes.
+4. Test the application locally.
+5. Commit your changes:
+
+   ```bash
+   git commit -m "Describe your change"
+   ```
+
+6. Push your branch:
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+7. Open a pull request.
+
+Please preserve the privacy-first, client-side nature of the project.
 
 ---
 
 ## Development Setup
 
-Since the application is a single HTML file with inline CSS and JavaScript, development is straightforward:
+Raia Scrub uses a single-file architecture with inline CSS and JavaScript.
 
-1. Edit the `index.html` file directly.
-2. Test locally by opening the file in a browser.
-3. For dependency updates, modify the CDN URLs in the `<script>` tags.
+Development usually involves:
 
-No build tools or compilation steps are required.
+1. Editing the main HTML file.
+2. Updating inline styles or scripts.
+3. Testing the application in multiple browsers.
+4. Testing image and PDF files with different metadata structures.
+5. Verifying that original files are not modified.
+6. Testing both online and offline workflows.
+7. Checking mobile and desktop layouts.
+8. Reviewing accessibility with keyboard navigation.
+
+No build step is required unless the project deployment configuration adds one.
+
+### Suggested Testing Checklist
+
+- JPG with GPS metadata.
+- JPEG with camera metadata.
+- PNG with text metadata.
+- PDF with author and producer fields.
+- Multiple files in one queue.
+- Maximum file-size behavior.
+- Corrupted file behavior.
+- Downloaded output inspection.
+- Keyboard navigation.
+- Screen-reader labels.
+- Reduced-motion preference.
+- Mobile layout.
+- Offline behavior after initial load.
 
 ---
 
 ## License
 
-This tool is provided as open source under the MIT license. See the `LICENSE` file for details.
+Raia Scrub is released under the MIT License.
+
+See the [LICENSE](LICENSE) file for the full license text.
 
 ---
 
 ## Author and Support
 
-Raia Scrub is developed and maintained by Haiere & Hajir Studio. For questions, feedback, or support, please use the issue tracker or contact via the project repository.
+Raia Scrub is developed and maintained by **Haiere** and **Hajir Studio**.
+
+For questions, bug reports, and feature requests, use the issue tracker in the project repository.
+
+If Raia Scrub is useful to you, consider supporting continued development:
+
+<p align="center">
+  <a href="https://buymeacoffee.com/hajirstudio">
+    <img
+      src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20Development-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black"
+      alt="Buy Me a Coffee"
+    />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://buymeacoffee.com/hajirstudio">
+    Support Raia Scrub on Buy Me a Coffee
+  </a>
+</p>
 
 ---
 
 ## Additional Notes
 
-- The tool is designed to work offline after the initial load.
-- All data processing is performed client-side; no analytics or logging is performed.
-- The application is free to use and distributed without warranty.
+- Raia Scrub is free to use.
+- The project is provided without warranty.
+- Processing happens locally in the browser during normal use.
+- The hosted version may load dependencies from a CDN.
+- Cleaned files should be independently verified before publication.
+- The donation button is optional and does not interfere with the cleaning workflow.
+- The application does not intentionally collect file contents, metadata, analytics, or tracking data.
+- Please avoid including personal data, secrets, API keys, or private endpoints in issues and pull requests.
 
 ---
 
-Last updated: 2026
+<p align="center">
+  Made with care for safer file sharing.
+</p>
+
+<p align="center">
+  <sub>Last updated: September 2026 · Raia Scrub v2.0.3</sub>
+</p>
