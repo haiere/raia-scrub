@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- ============ PRIMARY SEO ============ -->
-    <title>Raia Scrub — Remove EXIF &amp; PDF Metadata Locally</title>
-    <meta name="description" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files right in your browser. 100% local, no uploads, free and private. Clean your digital trail." />
+    <title data-i18n="meta.title">Raia Scrub: Remove EXIF &amp; PDF Metadata Locally</title>
+    <meta name="description" data-i18n-attr="content:meta.description" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files right in your browser. 100% local, no uploads, free and private. Clean your digital trail." />
     <meta name="keywords" content="metadata remover, EXIF remover, remove GPS from photo, PDF metadata cleaner, privacy tool, scrub metadata online, EXIF scrubber, remove camera data, Raia Scrub" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
@@ -16,7 +16,7 @@
     <meta name="application-name" content="Raia Scrub" />
     <meta name="rating" content="general" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="theme-color" content="#020617" />
+    <meta name="theme-color" content="#0A192F" />
     <meta name="color-scheme" content="dark" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="canonical" href="https://raia-scrub.haiere.workers.dev/" />
@@ -25,44 +25,46 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Raia Scrub" />
     <meta property="og:url" content="https://raia-scrub.haiere.workers.dev/" />
-    <meta property="og:title" content="Raia Scrub — Remove EXIF &amp; PDF Metadata Locally" />
-    <meta property="og:description" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files in your browser. 100% local, no uploads, free and private." />
+    <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="Raia Scrub: Remove EXIF &amp; PDF Metadata Locally" />
+    <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files in your browser. 100% local, no uploads, free and private." />
     <meta property="og:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <meta property="og:image:secure_url" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Raia Scrub — privacy-first metadata removal tool" />
+    <meta property="og:image:alt" data-i18n-attr="content:meta.ogImageAlt" content="Raia Scrub, a privacy-first metadata removal tool" />
     <meta property="og:locale" content="en_US" />
 
     <!-- ============ TWITTER / X ============ -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@hajirstudio" />
     <meta name="twitter:creator" content="@hajirstudio" />
-    <meta name="twitter:title" content="Raia Scrub — Remove EXIF &amp; PDF Metadata Locally" />
-    <meta name="twitter:description" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files in your browser. 100% local, no uploads, free and private." />
+    <meta name="twitter:title" data-i18n-attr="content:meta.twitterTitle" content="Raia Scrub: Remove EXIF &amp; PDF Metadata Locally" />
+    <meta name="twitter:description" data-i18n-attr="content:meta.twitterDescription" content="Strip GPS, camera and author metadata from JPG, PNG and PDF files in your browser. 100% local, no uploads, free and private." />
     <meta name="twitter:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
-    <meta name="twitter:image:alt" content="Raia Scrub — privacy-first metadata removal tool" />
+    <meta name="twitter:image:alt" data-i18n-attr="content:meta.twitterImageAlt" content="Raia Scrub, a privacy-first metadata removal tool" />
 
     <!-- ============ ICONS ============ -->
     <link rel="icon" type="image/webp" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <link rel="apple-touch-icon" href="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
 
-    <!-- ============ PERFORMANCE HINTS ============ -->
+    <!-- ============ FONTS ============ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="dns-prefetch" href="https://i.postimg.cc" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <!-- ============ FONTS ============ -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- ============ LIBRARIES (pinned) ============ -->
+    <script defer src="https://cdn.jsdelivr.net/npm/exifreader@4.23.3/dist/exif-reader.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
-    <!-- ============ LIBRARIES ============ -->
-    <script defer src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/ExifReader.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/piexifjs@latest"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/pdf-lib@latest/dist/pdf-lib.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/jszip@latest/dist/jszip.min.js"></script>
+    <!-- ============ ANIMATION (GSAP, pinned) ============ -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- ============ STRUCTURED DATA ============ -->
     <script type="application/ld+json">
@@ -80,8 +82,8 @@
           "applicationSubCategory": "Privacy Tool",
           "operatingSystem": "All",
           "browserRequirements": "Requires JavaScript. Works in Chrome, Firefox, Edge and Safari.",
-          "softwareVersion": "2.0.3",
-          "inLanguage": "en",
+          "softwareVersion": "2.0.4",
+          "inLanguage": ["en", "id"],
           "isAccessibleForFree": true,
           "offers": {
             "@type": "Offer",
@@ -169,64 +171,47 @@
           "totalTime": "PT1M",
           "tool": [{ "@type": "HowToTool", "name": "Raia Scrub" }],
           "step": [
-            {
-              "@type": "HowToStep",
-              "position": 1,
-              "name": "Add your files",
-              "text": "Drag and drop JPG, PNG or PDF files onto the drop zone, or click it to browse your device."
-            },
-            {
-              "@type": "HowToStep",
-              "position": 2,
-              "name": "Review the privacy report",
-              "text": "Raia Scrub scans each file and lists every metadata field it finds, highlighting the sensitive ones."
-            },
-            {
-              "@type": "HowToStep",
-              "position": 3,
-              "name": "Scrub the metadata",
-              "text": "Click Scrub Now on a single file or Scrub All to process the whole queue."
-            },
-            {
-              "@type": "HowToStep",
-              "position": 4,
-              "name": "Download the cleaned files",
-              "text": "Download each cleaned file individually or grab everything at once as a ZIP archive."
-            }
+            { "@type": "HowToStep", "position": 1, "name": "Add your files", "text": "Drag and drop JPG, PNG or PDF files onto the drop zone, or click it to browse your device." },
+            { "@type": "HowToStep", "position": 2, "name": "Review the privacy report", "text": "Raia Scrub scans each file and lists every metadata field it finds, highlighting the sensitive ones." },
+            { "@type": "HowToStep", "position": 3, "name": "Scrub the metadata", "text": "Click Scrub Now on a single file or Scrub All to process the whole queue." },
+            { "@type": "HowToStep", "position": 4, "name": "Download the cleaned files", "text": "Download each cleaned file individually or grab everything at once as a ZIP archive." }
           ]
         }
       ]
     }
     </script>
-    
-    <link rel="stylesheet" href="style.css" />
-    
-</head>
 
+    <link rel="stylesheet" href="style.css" />
+</head>
 <body>
-    <a class="skip-link" href="#mainContent">Skip to main content</a>
+    <a class="skip-link" href="#mainContent" data-i18n="nav.skip">Skip to main content</a>
 
     <!-- ============ HEADER ============ -->
     <header class="site-header" id="siteHeader" role="banner">
         <div class="header-inner">
-            <a href="#hero" class="brand" aria-label="Raia Scrub home">
+            <a href="#hero" class="brand" data-i18n-attr="aria-label:nav.home">
                 <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub logo" class="brand-logo" width="44" height="44" loading="eager" decoding="async" />
                 <span class="brand-text">RAIA<span>Scrub</span></span>
                 <span class="brand-badge" aria-hidden="true">
                     <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    100% Local
+                    <span data-i18n="badge.local">100% local</span>
                 </span>
             </a>
 
-            <nav class="nav-desktop" aria-label="Main navigation">
-                <a href="#features">Features</a>
-                <a href="#how">How It Works</a>
-                <a href="#privacy">Privacy</a>
-                <a href="#faq">FAQ</a>
-                <a href="#filesSection" class="nav-cta">Get Started</a>
+            <nav class="nav-desktop" aria-label="Main navigation" data-i18n-attr="aria-label:nav.main">
+                <a href="#features" data-i18n="nav.features">Features</a>
+                <a href="#how" data-i18n="nav.how">How it works</a>
+                <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+                <a href="#faq" data-i18n="nav.faq">FAQ</a>
+                <a href="#filesSection" class="nav-cta" data-i18n="nav.getStarted">Get started</a>
             </nav>
 
-            <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMobile">
+            <div class="lang-switch" role="group" data-i18n-attr="aria-label:nav.language">
+                <button type="button" class="lang-btn" data-lang-option="en" aria-pressed="true" onclick="i18n.setLang('en')">EN</button>
+                <button type="button" class="lang-btn" data-lang-option="id" aria-pressed="false" onclick="i18n.setLang('id')">ID</button>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" type="button" data-i18n-attr="aria-label:nav.toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMobile">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -236,12 +221,16 @@
 
     <!-- Mobile navigation -->
     <div class="nav-mobile-overlay" id="navOverlay" aria-hidden="true"></div>
-    <nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
-        <a href="#features" class="nav-mobile-link">Features</a>
-        <a href="#how" class="nav-mobile-link">How It Works</a>
-        <a href="#privacy" class="nav-mobile-link">Privacy</a>
-        <a href="#faq" class="nav-mobile-link">FAQ</a>
-        <a href="#filesSection" class="nav-mobile-cta">Get Started</a>
+    <nav class="nav-mobile" id="navMobile" data-i18n-attr="aria-label:nav.mobile" aria-label="Mobile navigation">
+        <a href="#features" class="nav-mobile-link" data-i18n="nav.features">Features</a>
+        <a href="#how" class="nav-mobile-link" data-i18n="nav.how">How it works</a>
+        <a href="#privacy" class="nav-mobile-link" data-i18n="nav.privacy">Privacy</a>
+        <a href="#faq" class="nav-mobile-link" data-i18n="nav.faq">FAQ</a>
+        <a href="#filesSection" class="nav-mobile-cta" data-i18n="nav.getStarted">Get started</a>
+        <div class="lang-switch lang-switch--mobile" role="group" data-i18n-attr="aria-label:nav.language">
+            <button type="button" class="lang-btn" data-lang-option="en" aria-pressed="true" onclick="i18n.setLang('en')">EN</button>
+            <button type="button" class="lang-btn" data-lang-option="id" aria-pressed="false" onclick="i18n.setLang('id')">ID</button>
+        </div>
     </nav>
 
     <!-- ============ MAIN ============ -->
@@ -250,30 +239,31 @@
         <!-- HERO + TOOL -->
         <section class="hero" id="hero" aria-labelledby="hero-title">
 
-            <h1 class="hero-title" id="hero-title">
+            <h1 class="hero-title" id="hero-title" data-i18n-html="hero.title">
                 Clean Your <span>Digital Trail</span>
             </h1>
 
-            <p class="hero-sub">
+            <p class="hero-sub" data-i18n="hero.sub">
                 Remove GPS, camera data, timestamps and hidden metadata from JPG, PNG and PDF files right inside your browser. Nothing is ever uploaded.
             </p>
 
-            <div class="hero-stats" aria-label="Key facts">
+            <div class="hero-stats" data-i18n-attr="aria-label:hero.statsLabel" aria-label="Key facts">
                 <div class="stat">
                     <div class="stat-num">0</div>
-                    <div class="stat-label">Files uploaded</div>
+                    <div class="stat-label" data-i18n="stat.files">Files uploaded</div>
                 </div>
                 <div class="stat">
                     <div class="stat-num">3</div>
-                    <div class="stat-label">Formats supported</div>
+                    <div class="stat-label" data-i18n="stat.formats">Formats supported</div>
                 </div>
                 <div class="stat">
                     <div class="stat-num">100%</div>
-                    <div class="stat-label">Free &amp; private</div>
+                    <div class="stat-label" data-i18n="stat.free">Free &amp; private</div>
                 </div>
             </div>
 
             <div class="drop-zone" id="dropZone" role="button" tabindex="0"
+                 data-i18n-attr="aria-label:drop.aria"
                  aria-label="Drag and drop files here, or press Enter to browse"
                  aria-describedby="dropHint">
                 <div class="drop-icon" aria-hidden="true">
@@ -284,240 +274,241 @@
                     </svg>
                 </div>
 
-                <div class="drop-title">Drop files here</div>
+                <div class="drop-title" data-i18n="drop.title">Drop files here</div>
                 <div class="drop-subtitle" id="dropHint">
-                    or click to browse<br />
-                    <small>Max 8 files · 50 MB each</small>
+                    <span data-i18n="drop.subtitle">or click to browse</span><br />
+                    <small data-i18n="drop.limit">Max 8 files · 50 MB each</small>
                 </div>
 
-                <div class="drop-formats" aria-label="Supported file types">
+                <div class="drop-formats" data-i18n-attr="aria-label:drop.formatsLabel" aria-label="Supported file types">
                     <span class="format-tag active">JPG / JPEG</span>
                     <span class="format-tag active">PNG</span>
                     <span class="format-tag active">PDF</span>
                 </div>
 
-                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf" aria-label="Choose files to scrub" />
+                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf" data-i18n-attr="aria-label:drop.input" aria-label="Choose files to scrub" />
             </div>
 
-            <div class="edu-box" role="note" aria-label="Privacy warning">
+            <div class="edu-box" role="note" data-i18n-attr="aria-label:edu.aria" aria-label="Privacy warning">
                 <span class="edu-icon" aria-hidden="true">
                     <svg class="icon-svg icon-svg--md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 </span>
                 <div class="edu-text">
-                    <strong>Why scrub metadata?</strong> Photos and documents can quietly reveal <strong>your home GPS location</strong>, phone model, timestamps and even your name. Strip it before you share.
+                    <strong data-i18n="edu.title">Why scrub metadata?</strong>
+                    <span data-i18n-html="edu.text">Photos and documents can quietly reveal <strong>your home GPS location</strong>, phone model, timestamps and even your name. Strip it before you share.</span>
                 </div>
             </div>
 
-            <div class="action-bar" id="actionBar" role="toolbar" aria-label="File actions">
+            <div class="action-bar" id="actionBar" role="toolbar" data-i18n-attr="aria-label:action.aria" aria-label="File actions">
                 <div class="action-group">
                     <button class="btn btn-primary" id="scrubAllBtn" type="button" onclick="scrubAll()">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
-                        Scrub All
+                        <span data-i18n="action.scrubAll">Scrub All</span>
                     </button>
 
-                    <button class="btn btn-ghost" id="downloadZipBtn" type="button" onclick="downloadAll()" style="display:none" aria-label="Download all cleaned files as ZIP">
+                    <button class="btn btn-ghost" id="downloadZipBtn" type="button" onclick="downloadAll()" style="display:none" data-i18n-attr="aria-label:action.downloadZipAria" aria-label="Download all cleaned files as ZIP">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Download All ZIP
+                        <span data-i18n="action.downloadZip">Download All ZIP</span>
                     </button>
                 </div>
 
-                <button class="btn btn-ghost btn-sm" type="button" onclick="clearAll()" aria-label="Clear all files">
+                <button class="btn btn-ghost btn-sm" type="button" onclick="clearAll()" data-i18n-attr="aria-label:action.clearAria" aria-label="Clear all files">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    Clear All
+                    <span data-i18n="action.clear">Clear All</span>
                 </button>
             </div>
         </section>
 
         <!-- PRIVACY REPORT GRID -->
         <section id="filesSection" style="display:none" aria-labelledby="filesSectionTitle">
-            <div class="section-label" id="filesSectionTitle">Privacy Report</div>
+            <div class="section-label" id="filesSectionTitle" data-i18n="report.title">Privacy Report</div>
             <div id="filesGrid" role="list" aria-live="polite"></div>
         </section>
 
         <!-- FEATURES -->
         <section class="content-section reveal" id="features" aria-labelledby="features-title">
-            <div class="section-label">Features</div>
-            <h2 class="section-title" id="features-title">Everything you need to stay anonymous</h2>
-            <p class="section-sub">
-                Raia Scrub is built around one promise: your files never leave your device. Every feature works offline, in the browser sandbox, with zero tracking.
+            <div class="section-label" data-i18n="features.label">Features</div>
+            <h2 class="section-title" id="features-title" data-i18n="features.title">Everything you need to stay anonymous</h2>
+            <p class="section-sub" data-i18n="features.sub">
+                Raia Scrub is built around one promise: your files never leave your device. Every feature works offline, in the browser, with zero tracking.
             </p>
 
             <div class="features-grid">
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
-                    <h3 class="feature-title">100% Local Processing</h3>
-                    <p class="feature-text">Files are read with the browser File API and processed in memory. Nothing is transmitted to any server, ever.</p>
+                    <h3 class="feature-title" data-i18n="feature1.title">100% Local Processing</h3>
+                    <p class="feature-text" data-i18n="feature1.text">Files are read with the browser File API and processed in memory. Nothing is sent to any server, ever.</p>
                 </article>
 
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     </div>
-                    <h3 class="feature-title">GPS &amp; EXIF Removal</h3>
-                    <p class="feature-text">Detects and strips latitude, longitude, camera make and model, serial numbers, capture timestamps and embedded thumbnails.</p>
+                    <h3 class="feature-title" data-i18n="feature2.title">GPS &amp; EXIF Removal</h3>
+                    <p class="feature-text" data-i18n="feature2.text">Detects and removes latitude, longitude, camera make and model, serial numbers, capture timestamps and embedded thumbnails.</p>
                 </article>
 
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
-                    <h3 class="feature-title">PDF Metadata Cleaner</h3>
-                    <p class="feature-text">Clears title, author, subject, keywords, creator, producer and the XMP metadata stream from your PDF documents.</p>
+                    <h3 class="feature-title" data-i18n="feature3.title">PDF Metadata Cleaner</h3>
+                    <p class="feature-text" data-i18n="feature3.text">Clears title, author, subject, keywords, creator, producer and the XMP metadata stream from your PDF documents.</p>
                 </article>
 
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
-                    <h3 class="feature-title">Privacy Report</h3>
-                    <p class="feature-text">Before scrubbing, every file is scanned and each metadata field is listed, with sensitive items clearly highlighted.</p>
+                    <h3 class="feature-title" data-i18n="feature4.title">Privacy Report</h3>
+                    <p class="feature-text" data-i18n="feature4.text">Before scrubbing, every file is scanned and each metadata field is listed, with sensitive items clearly highlighted.</p>
                 </article>
 
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                     </div>
-                    <h3 class="feature-title">Before / After Preview</h3>
-                    <p class="feature-text">Compare the original image with the cleaned version side by side to confirm the result looks exactly the same.</p>
+                    <h3 class="feature-title" data-i18n="feature5.title">Before / After Preview</h3>
+                    <p class="feature-text" data-i18n="feature5.text">Compare the original image with the cleaned version side by side to confirm the result looks exactly the same.</p>
                 </article>
 
-                <article class="feature-card">
+                <article class="feature-card reveal-item">
                     <div class="feature-icon" aria-hidden="true">
-                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     </div>
-                    <h3 class="feature-title">Bulk Download as ZIP</h3>
-                    <p class="feature-text">Scrub up to 8 files at once and download the cleaned results individually or bundled into a single ZIP archive.</p>
+                    <h3 class="feature-title" data-i18n="feature6.title">Bulk Download as ZIP</h3>
+                    <p class="feature-text" data-i18n="feature6.text">Clean up to 8 files at once, then download them one by one or bundled into a single ZIP archive.</p>
                 </article>
             </div>
         </section>
 
         <!-- HOW IT WORKS -->
         <section class="content-section reveal" id="how" aria-labelledby="how-title">
-            <div class="section-label">How It Works</div>
-            <h2 class="section-title" id="how-title">Four steps. Under a minute.</h2>
-            <p class="section-sub">
+            <div class="section-label" data-i18n="how.label">How It Works</div>
+            <h2 class="section-title" id="how-title" data-i18n="how.title">Four steps. Under a minute.</h2>
+            <p class="section-sub" data-i18n="how.sub">
                 No account, no installation, no command line. Just drop your files and download them clean.
             </p>
 
-            <div class="steps-grid">
-                <article class="step-card">
-                    <div class="step-num">STEP 01</div>
-                    <h3 class="step-title">Add your files</h3>
-                    <p class="step-text">Drag and drop JPG, PNG or PDF files onto the drop zone, or click it to browse your device.</p>
-                </article>
+            <ol class="steps-grid">
+                <li class="step-card reveal-item">
+                    <div class="step-num" data-i18n="step1.num">STEP 01</div>
+                    <h3 class="step-title" data-i18n="step1.title">Add your files</h3>
+                    <p class="step-text" data-i18n="step1.text">Drag and drop JPG, PNG or PDF files onto the drop zone, or click it to browse your device.</p>
+                </li>
 
-                <article class="step-card">
-                    <div class="step-num">STEP 02</div>
-                    <h3 class="step-title">Review the report</h3>
-                    <p class="step-text">Raia Scrub scans each file and lists every metadata field it finds, highlighting the sensitive ones in red.</p>
-                </article>
+                <li class="step-card reveal-item">
+                    <div class="step-num" data-i18n="step2.num">STEP 02</div>
+                    <h3 class="step-title" data-i18n="step2.title">Review the report</h3>
+                    <p class="step-text" data-i18n="step2.text">Raia Scrub scans each file and lists every metadata field it finds, highlighting the sensitive ones in red.</p>
+                </li>
 
-                <article class="step-card">
-                    <div class="step-num">STEP 03</div>
-                    <h3 class="step-title">Scrub the metadata</h3>
-                    <p class="step-text">Click “Scrub Now” on a single file or “Scrub All” to clean the entire queue in one go.</p>
-                </article>
+                <li class="step-card reveal-item">
+                    <div class="step-num" data-i18n="step3.num">STEP 03</div>
+                    <h3 class="step-title" data-i18n="step3.title">Scrub the metadata</h3>
+                    <p class="step-text" data-i18n="step3.text">Click “Scrub Now” on a single file or “Scrub All” to clean the entire queue in one go.</p>
+                </li>
 
-                <article class="step-card">
-                    <div class="step-num">STEP 04</div>
-                    <h3 class="step-title">Download &amp; share</h3>
-                    <p class="step-text">Grab each cleaned file individually, or download everything at once as a ZIP archive.</p>
-                </article>
-            </div>
+                <li class="step-card reveal-item">
+                    <div class="step-num" data-i18n="step4.num">STEP 04</div>
+                    <h3 class="step-title" data-i18n="step4.title">Download &amp; share</h3>
+                    <p class="step-text" data-i18n="step4.text">Grab each cleaned file individually, or download everything at once as a ZIP archive.</p>
+                </li>
+            </ol>
         </section>
 
         <!-- PRIVACY -->
         <section class="content-section reveal" id="privacy" aria-labelledby="privacy-title">
-            <div class="section-label">Privacy</div>
-            <h2 class="section-title" id="privacy-title">Privacy by design, not by promise</h2>
-            <p class="section-sub">
+            <div class="section-label" data-i18n="privacy.label">Privacy</div>
+            <h2 class="section-title" id="privacy-title" data-i18n="privacy.title">Privacy by design, not by promise</h2>
+            <p class="section-sub" data-i18n="privacy.sub">
                 Raia Scrub has no backend. There is no upload endpoint, no database and no analytics pipeline. Once the page has loaded, you can disconnect from the internet and keep working.
             </p>
 
             <div class="trust-grid">
-                <article class="trust-card">
+                <article class="trust-card reveal-item">
                     <span class="trust-icon" aria-hidden="true">
-                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6l1 3h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>
                     </span>
-                    <h3 class="trust-title">No File Uploads</h3>
-                    <p class="trust-text">Your files stay in your browser tab. They are never sent anywhere, not even to us.</p>
+                    <h3 class="trust-title" data-i18n="trust1.title">No File Uploads</h3>
+                    <p class="trust-text" data-i18n="trust1.text">Your files stay in your browser tab. They are never sent anywhere, not even to us.</p>
                 </article>
 
-                <article class="trust-card">
+                <article class="trust-card reveal-item">
                     <span class="trust-icon" aria-hidden="true">
-                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+                        <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"></path><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
                     </span>
-                    <h3 class="trust-title">No Tracking Cookies</h3>
-                    <p class="trust-text">A single local preference flag remembers your cookie choice. No analytics, no fingerprinting, no ads.</p>
+                    <h3 class="trust-title" data-i18n="trust2.title">No Tracking Cookies</h3>
+                    <p class="trust-text" data-i18n="trust2.text">A single local preference flag remembers your cookie choice. No analytics, no fingerprinting, no ads.</p>
                 </article>
 
-                <article class="trust-card">
+                <article class="trust-card reveal-item">
                     <span class="trust-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
                     </span>
-                    <h3 class="trust-title">Works Offline</h3>
-                    <p class="trust-text">After the first load, the page and its libraries are cached. Disconnect and keep scrubbing safely.</p>
+                    <h3 class="trust-title" data-i18n="trust3.title">Works Offline</h3>
+                    <p class="trust-text" data-i18n="trust3.text">After the first load, the page and its libraries are cached. Disconnect and keep scrubbing safely.</p>
                 </article>
 
-                <article class="trust-card">
+                <article class="trust-card reveal-item">
                     <span class="trust-icon" aria-hidden="true">
                         <svg class="icon-svg icon-svg--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                     </span>
-                    <h3 class="trust-title">Open &amp; Auditable</h3>
-                    <p class="trust-text">The whole app is a single HTML file. View source and verify exactly what runs on your machine.</p>
+                    <h3 class="trust-title" data-i18n="trust4.title">Open &amp; Auditable</h3>
+                    <p class="trust-text" data-i18n="trust4.text">The app is made of plain HTML, CSS and JavaScript files. View the source and check what runs on your device.</p>
                 </article>
             </div>
         </section>
 
         <!-- FAQ -->
         <section class="content-section reveal" id="faq" aria-labelledby="faq-title">
-            <div class="section-label">FAQ</div>
-            <h2 class="section-title" id="faq-title">Frequently asked questions</h2>
-            <p class="section-sub">
+            <div class="section-label" data-i18n="faq.label">FAQ</div>
+            <h2 class="section-title" id="faq-title" data-i18n="faq.title">Frequently asked questions</h2>
+            <p class="section-sub" data-i18n="faq.sub">
                 Everything you might want to know before you scrub your first file.
             </p>
 
             <div class="faq-list">
                 <details class="faq-item">
-                    <summary>Are my files uploaded to a server?</summary>
-                    <div class="faq-answer">
+                    <summary data-i18n="faq1.q">Are my files uploaded to a server?</summary>
+                    <div class="faq-answer" data-i18n="faq1.a">
                         No. Raia Scrub runs entirely inside your browser. Files are read locally with the File API and never leave your device. You can even disconnect from the internet after the page loads and keep scrubbing.
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>What metadata does Raia Scrub remove?</summary>
-                    <div class="faq-answer">
+                    <summary data-i18n="faq2.q">What metadata does Raia Scrub remove?</summary>
+                    <div class="faq-answer" data-i18n="faq2.a">
                         For images it removes EXIF data such as GPS coordinates, camera make and model, capture timestamps, software, artist, copyright, focal length, camera serial numbers and embedded thumbnails. For PDFs it clears the title, author, subject, keywords, creator, producer and the XMP metadata stream.
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>Which file formats are supported?</summary>
-                    <div class="faq-answer">
+                    <summary data-i18n="faq3.q">Which file formats are supported?</summary>
+                    <div class="faq-answer" data-i18n="faq3.a">
                         JPG, JPEG, PNG and PDF. You can queue up to 8 files at a time, with a maximum size of 50 MB per file.
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>Does scrubbing reduce image quality?</summary>
-                    <div class="faq-answer">
-                        JPEG files are cleaned losslessly by rewriting the EXIF segment, so the pixels stay untouched. PNG files are re-encoded through a canvas at maximum quality, which removes metadata while preserving visual fidelity.
+                    <summary data-i18n="faq4.q">Does scrubbing reduce image quality?</summary>
+                    <div class="faq-answer" data-i18n="faq4.a">
+                        JPEG files are cleaned losslessly by rewriting the EXIF segment, so the pixels stay untouched. PNG files are re-encoded through a canvas at maximum quality, which removes metadata while keeping the visual quality.
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>Is Raia Scrub free to use?</summary>
-                    <div class="faq-answer">
+                    <summary data-i18n="faq5.q">Is Raia Scrub free to use?</summary>
+                    <div class="faq-answer" data-i18n="faq5.a">
                         Yes. Raia Scrub is completely free and open source. There is no account, no sign-up, no watermark and no installation.
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>Can I use Raia Scrub offline?</summary>
-                    <div class="faq-answer">
+                    <summary data-i18n="faq6.q">Can I use Raia Scrub offline?</summary>
+                    <div class="faq-answer" data-i18n="faq6.a">
                         Yes. After the first load, the page and its libraries are cached by your browser, so you can keep scrubbing files without an internet connection.
                     </div>
                 </details>
@@ -527,42 +518,41 @@
 
     <!-- ============ FOOTER ============ -->
     <footer class="site-footer" role="contentinfo">
-        <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub logo" class="footer-logo" loading="lazy" decoding="async" width="56" height="56" />
+        <img src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="Raia Scrub logo" class="footer-logo" loading="lazy" decoding="async" width="56" height="56" data-i18n-attr="alt:footer.logoAlt" />
         <div class="footer-name">Raia Scrub</div>
-        <div class="footer-tagline">Clean your files, protect your privacy.</div>
+        <div class="footer-tagline" data-i18n="footer.tagline">Clean your files, protect your privacy.</div>
 
         <div class="privacy-note">
-            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            All processing happens in your browser — no data is sent to any server.
-            <div style="margin-top:4px;font-size:0.8rem;opacity:0.7;width:100%;">Built with privacy-first principles.</div>
+            <span data-i18n="footer.privacyNote">All processing happens in your browser. No data is sent to any server.</span>
+            <span class="privacy-note-sub" data-i18n="footer.builtWith">Built with privacy-first principles.</span>
         </div>
 
-        <a class="footer-donate" href="https://buymeacoffee.com/hajirstudio" target="_blank" rel="noopener noreferrer" aria-label="Support Raia Scrub on Buy Me a Coffee">
-            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-            Buy Us a Coffee
+        <a class="footer-donate" href="https://buymeacoffee.com/hajirstudio" target="_blank" rel="noopener noreferrer" data-i18n-attr="aria-label:footer.donateAria" aria-label="Support Raia Scrub on Buy Me a Coffee">
+            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+            <span data-i18n="footer.donate">Buy us a coffee</span>
         </a>
 
-        <div class="ft-lnks">
-            <a href="https://raia-footer.netlify.app/#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-            <a href="https://raia-footer.netlify.app/#terms" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
-            <a href="https://raia-footer.netlify.app/#cookie" target="_blank" rel="noopener noreferrer">Cookie Policy</a>
-        </div>
+        <nav class="ft-lnks" aria-label="Legal">
+            <a href="https://hajir.is-a.dev/raia-footer/#privacy" target="_blank" rel="noopener noreferrer" data-i18n="footer.privacyPolicy">Privacy Policy</a>
+            <a href="https://hajir.is-a.dev/raia-footer/#terms" target="_blank" rel="noopener noreferrer" data-i18n="footer.terms">Terms &amp; Conditions</a>
+            <a href="https://hajir.is-a.dev/raia-footer/#cookie" target="_blank" rel="noopener noreferrer" data-i18n="footer.cookiePolicy">Cookie Policy</a>
+        </nav>
 
         <div class="footer-divider" aria-hidden="true"></div>
 
         <div class="footer-meta">
-            <span class="copyright">&copy; 2026 Haiere. All rights reserved.</span>
-            <span class="version-pill">V 2.0.3</span>
+            <span class="copyright" data-i18n="footer.copyright">© 2026 Haiere. Licensed under the MIT License.</span>
+            <span class="version-pill">V 2.0.4</span>
         </div>
     </footer>
 
     <!-- ============ FLOATING DONATE ============ -->
     <a class="donate-float" href="https://buymeacoffee.com/hajirstudio" target="_blank" rel="noopener noreferrer"
-       aria-label="Support Raia Scrub on Buy Me a Coffee">
-        <span class="donate-emoji" aria-hidden="true">
-            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+       data-i18n-attr="aria-label:footer.donateAria" aria-label="Support Raia Scrub on Buy Me a Coffee">
+        <span class="donate-icon" aria-hidden="true">
+            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
         </span>
-        <span class="donate-text">Donate</span>
+        <span class="donate-text" data-i18n="donate.text">Donate</span>
     </a>
 
     <!-- ============ TOASTS ============ -->
@@ -570,30 +560,34 @@
 
     <!-- ============ COOKIE BANNER ============ -->
     <div id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieBannerTitle" style="display:none;">
-        <div id="cookieBannerTitle" class="sr-only">Cookie consent</div>
-        <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;">
-            <svg class="icon-svg icon-svg--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
-            We use a single local preference cookie. No tracking, no sharing.
-            <a href="https://raia-footer.netlify.app/#cookie" target="_blank" rel="noopener noreferrer">Learn more</a>
-        </span>
+        <div id="cookieBannerTitle" class="sr-only" data-i18n="cookie.title">Cookie consent</div>
+        <p class="cookie-text">
+            <span data-i18n="cookie.text">We use a single local preference cookie. No tracking, no sharing.</span>
+            <a href="https://hajir.is-a.dev/raia-footer/#cookie" target="_blank" rel="noopener noreferrer" data-i18n="cookie.learnMore">Learn more</a>
+        </p>
 
         <div class="cookie-actions">
-            <button class="cookie-btn cookie-btn-accept" type="button" onclick="acceptCookies()" aria-label="Accept cookies">Accept</button>
-            <button class="cookie-btn cookie-btn-deny" type="button" onclick="denyCookies()" aria-label="Decline cookies">Decline</button>
+            <button class="cookie-btn cookie-btn-accept" type="button" onclick="acceptCookies()" data-i18n-attr="aria-label:cookie.acceptAria" aria-label="Accept cookies" data-i18n="cookie.accept">Accept</button>
+            <button class="cookie-btn cookie-btn-deny" type="button" onclick="denyCookies()" data-i18n-attr="aria-label:cookie.declineAria" aria-label="Decline cookies" data-i18n="cookie.decline">Decline</button>
         </div>
     </div>
 
     <!-- ============ NOSCRIPT ============ -->
     <noscript>
-        <div style="position:fixed;inset:0;z-index:99999;background:#020617;color:#e2e8f0;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px;font-family:Inter,sans-serif;">
+        <div class="noscript-fallback">
             <div>
-                <h2 style="color:#3b82f6;margin-bottom:10px;">JavaScript Required</h2>
-                <p style="max-width:460px;color:#94a3b8;">Raia Scrub processes everything locally in your browser, so JavaScript must be enabled to use it. No file ever leaves your device.</p>
+                <h2 data-i18n="noscript.title">JavaScript Required</h2>
+                <p data-i18n="noscript.text">Raia Scrub processes everything locally in your browser, so JavaScript must be enabled to use it. No file ever leaves your device.</p>
             </div>
         </div>
     </noscript>
-    
+
+    <!-- ============ SCRIPTS ============ -->
+    <script src="i18n.js"></script>
+    <script>
+        // Apply the saved or default language before the page script runs.
+        i18n.init();
+    </script>
     <script src="script.js"></script>
-    
 </body>
 </html>
